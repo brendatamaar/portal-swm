@@ -20,7 +20,7 @@ class SuperAdminSeeder extends Seeder
         $superAdmin = User::create([
             'name' => 'Superadmin', 
             'email' => 'superadmin@gmail.com',
-            'password' => Hash::make('123456')
+            'password' => bcrypt('123456')
         ]);
         $superAdmin->assignRole('Super Admin');
 
@@ -28,21 +28,21 @@ class SuperAdminSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin', 
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('123456')
+            'password' => bcrypt('123456')
         ]);
         $admin->assignRole('Admin');
 
         $worker = User::create([
             'name' => 'Worker', 
             'email' => 'worker@gmail.com',
-            'password' => Hash::make('123456')
+            'password' => bcrypt('123456')
         ]);
         $worker->assignRole('Worker');
 
         $viewer = User::create([
             'name' => 'Viewer', 
             'email' => 'viewer@gmail.com',
-            'password' => Hash::make('123456')
+            'password' => bcrypt('123456')
         ]);
         $viewer->assignRole('Viewer');
     }
