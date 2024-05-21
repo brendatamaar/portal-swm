@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Users;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class SuperAdminSeeder extends Seeder
 {
@@ -17,33 +18,83 @@ class SuperAdminSeeder extends Seeder
     public function run()
     {
         // Creating Super Admin User
-        $superAdmin = User::create([
-            'name' => 'Superadmin', 
+        $superAdmin = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'Superadmin',
+            'username' => 'superadmin',
             'email' => 'superadmin@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => '123456',
+            'site_id' => '00001',
+            'region_id' => 1
         ]);
         $superAdmin->assignRole('Super Admin');
 
         // Creating Admin User
-        $admin = User::create([
-            'name' => 'Admin', 
+        $admin = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'Admin',
+            'username' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => '123456',
+            'site_id' => '00001',
+            'region_id' => 1
         ]);
         $admin->assignRole('Admin');
 
-        $worker = User::create([
-            'name' => 'Worker', 
+        $worker = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'Worker',
+            'username' => 'worker',
             'email' => 'worker@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => '123456',
+            'site_id' => '00001',
+            'region_id' => 1
         ]);
         $worker->assignRole('Worker');
 
-        $viewer = User::create([
-            'name' => 'Viewer', 
+        $viewer = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'Viewer',
+            'username' => 'viewer',
             'email' => 'viewer@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => '123456',
+            'site_id' => '00001',
+            'region_id' => 1
         ]);
         $viewer->assignRole('Viewer');
+    }
+
+    /**
+     * Generate a random 16-digit number as a string.
+     *
+     * @param int $length
+     * @return string
+     */
+
+    private function generateUniqueNIK($length)
+    {
+        do {
+            $digits = $this->generateNIK($length);
+        } while ($this->numberExists($digits));
+
+        return $digits;
+    }
+
+    private function generateNIK($length)
+    {
+        $digits = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $digits .= mt_rand(0, 9);
+        }
+
+        return $digits;
+    }
+
+    private function numberExists($number)
+    {
+        return DB::table('users')
+            ->where('nik', $number)
+            ->exists();
     }
 }

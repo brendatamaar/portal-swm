@@ -12,7 +12,4 @@
     @yield('content')
 </main>
 
-@component('components.footer')
-@endcomponent
-
 @endsection

@@ -15,6 +15,8 @@
                         <th scope="col">S#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Site Name</th>
                         <th scope="col">Roles</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -25,6 +27,8 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->regions->name }}</td>
+                        <td>{{ $user->stores->site_name }}</td>
                         <td>
                             @forelse ($user->getRoleNames() as $role)
                             <span class="badge bg-primary text-white">{{ $role }}</span>
