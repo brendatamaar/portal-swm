@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Users extends Authenticatable
 {
@@ -25,6 +23,7 @@ class Users extends Authenticatable
         'email',
         'username',
         'password',
+        'position_id',
         'site_id',
         'region_id',
     ];
@@ -67,5 +66,10 @@ class Users extends Authenticatable
     public function regions()
     {
         return $this->belongsTo(Regions::class, 'region_id');
+    }
+
+    public function positions()
+    {
+        return $this->belongsTo(Positions::class, 'position_id');
     }
 }

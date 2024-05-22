@@ -23,6 +23,7 @@ class SuperAdminSeeder extends Seeder
             'name' => 'Superadmin',
             'username' => 'superadmin',
             'email' => 'superadmin@gmail.com',
+            'position_id' => 1,
             'password' => '123456',
             'site_id' => '00001',
             'region_id' => 1
@@ -36,6 +37,7 @@ class SuperAdminSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => '123456',
+            'position_id' => 1,
             'site_id' => '00001',
             'region_id' => 1
         ]);
@@ -47,6 +49,7 @@ class SuperAdminSeeder extends Seeder
             'username' => 'worker',
             'email' => 'worker@gmail.com',
             'password' => '123456',
+            'position_id' => 2,
             'site_id' => '00001',
             'region_id' => 1
         ]);
@@ -58,6 +61,7 @@ class SuperAdminSeeder extends Seeder
             'username' => 'viewer',
             'email' => 'viewer@gmail.com',
             'password' => '123456',
+            'position_id' => 2,
             'site_id' => '00001',
             'region_id' => 1
         ]);

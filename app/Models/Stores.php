@@ -24,6 +24,6 @@ class Stores extends Model
 
     public function users()
     {
-        return $this->hasMany(Users::class, 'site_id');
+        return $this->hasMany(Users::class);
     }
 }

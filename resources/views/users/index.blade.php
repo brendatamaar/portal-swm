@@ -9,10 +9,10 @@
         <a href="{{ route('users.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New User</a>
         @endcan
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-mobile-responsive table-mobile-sided">
                 <thead>
                     <tr>
-                        <th scope="col">S#</th>
+                        <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Region</th>
@@ -24,18 +24,18 @@
                 <tbody>
                     @forelse ($users as $user)
                     <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->regions->name }}</td>
-                        <td>{{ $user->stores->site_name }}</td>
-                        <td>
+                        <td scope="row" data-content="#">{{ $loop->iteration }}</td>
+                        <td data-content="Name">{{ $user->name }}</td>
+                        <td data-content="Email">{{ $user->email }}</td>
+                        <td data-content="Region">{{ $user->regions->name }}</td>
+                        <td data-content="Site Name">{{ $user->stores->site_name }}</td>
+                        <td data-content="Roles">
                             @forelse ($user->getRoleNames() as $role)
                             <span class="badge bg-primary text-white">{{ $role }}</span>
                             @empty
                             @endforelse
                         </td>
-                        <td>
+                        <td data-content="Action">
                             <form action="{{ route('users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
