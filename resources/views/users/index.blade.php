@@ -14,6 +14,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
+                        <th scope="col">NIK</th>
                         <th scope="col">Email</th>
                         <th scope="col">Jabatan</th>
                         <th scope="col">Region</th>
@@ -27,6 +28,7 @@
                     <tr>
                         <td scope="row" data-content="#">{{ $loop->iteration }}</td>
                         <td data-content="Name">{{ $user->name }}</td>
+                        <td data-content="NIK">{{ $user->nik }}</td>
                         <td data-content="Email">{{ $user->email }}</td>
                         <td data-content="Region">{{ $user->positions->position }}</td>
                         <td data-content="Region">{{ $user->regions->name }}</td>
