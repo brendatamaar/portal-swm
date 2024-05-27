@@ -49,7 +49,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ (request()->is('upload')) ? '' : 'collapsed' }}" href="{{ route('upload') }}">
+            <a class="nav-link {{ (request()->is('upload/sampling')) ? '' : 'collapsed' }}" href="{{ route('samplings.upload-data') }}">
                 <i class="bi bi-grid"></i>
                 <span>Upload Data</span>
             </a>

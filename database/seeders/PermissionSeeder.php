@@ -23,6 +23,7 @@ class PermissionSeeder extends Seeder
             'edit-user',
             'delete-user',
             'view-sampling',
+            'upload-sampling',
             'view-chart',
             'view-export'
         ];
