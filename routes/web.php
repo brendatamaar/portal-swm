@@ -31,3 +31,4 @@ Route::resources([
 ]);
 
 Route::get('upload/sampling', [SamplingController::class, 'upload'])->name('samplings.upload-data');
+Route::post('import', [SamplingController::class, 'import'])->name('import');

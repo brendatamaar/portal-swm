@@ -7,17 +7,20 @@
             <div class="card-header">
                 <div class="float-start">
                     Add New Data
-                </div>            </div>
+                </div>
+            </div>
             <div class="card-body">
-                <form action="{{ route('users.store') }}" method="post">
+                <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
-                    
-
-                    <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add User">
+                    <div>
+                        <label>File 1:</label>
+                        <input type="file" name="file1" required>
                     </div>
-
+                    <div>
+                        <label>File 2:</label>
+                        <input type="file" name="file2" required>
+                    </div>
+                    <button type="submit">Import</button>
                 </form>
             </div>
         </div>

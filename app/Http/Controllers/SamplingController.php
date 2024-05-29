@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\FirstFileImport;
+use App\Imports\SecondFileImport;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\Samplings;
@@ -10,6 +13,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SamplingController extends Controller
 {
@@ -23,7 +27,7 @@ class SamplingController extends Controller
     public function upload(): View
     {
         return view('sampling.upload', [
-            'sampling' => Samplings::orderBy('id','DESC')->paginate(10)
+            'sampling' => Samplings::orderBy('id', 'DESC')->paginate(10)
         ]);
     }
 
@@ -33,7 +37,7 @@ class SamplingController extends Controller
     public function index(): View
     {
         return view('sampling.create', [
-            'sampling' => Samplings::orderBy('id','DESC')->paginate(10)
+            'sampling' => Samplings::orderBy('id', 'DESC')->paginate(10)
         ]);
     }
 
@@ -77,4 +81,43 @@ class SamplingController extends Controller
         //
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file1' => 'required|file|mimes:xlsx',
+            'file2' => 'required|file|mimes:xlsx'
+        ]);
+
+        $file1 = Excel::toArray(new FirstFileImport, $request->file('file1'))[0];
+        $file2 = Excel::toArray(new SecondFileImport, $request->file('file2'))[0];
+
+        $mergedData = [];
+
+        $mergedArray = [];
+        foreach ($file1 as $row) {
+            $mergedArray[$row['category']] = $row['item_code'];
+        }
+
+        foreach ($file2 as $row) {
+            $category = $row['category'];
+            $itemCode = $mergedArray[$category] ?? null; // Find the item_code for the given category
+        
+            if ($itemCode !== null) {
+                $mergedData[] = [
+                    'category' => $category,
+                    'item_code' => $itemCode,
+                    'barcode_item' => $row['barcode_item']
+                ];
+            }
+        }
+        
+        // Insert merged data into the users table
+        //User::truncate();
+
+        foreach ($mergedData as $data) {
+            Samplings::create($data);
+        }
+        dd($mergedData);
+        //        return back()->with('success', 'Data Imported Successfully');
+    }
 }
