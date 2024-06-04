@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
@@ -26,7 +27,11 @@ Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
     'samplings' => SamplingController::class,
+    'profile' => ProfileController::class,
 ]);
+
+Route::get('change-password', [ProfileController::class, 'indexChangePassword'])->name('profile.update-password');
+Route::post('update-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 
 Route::get('upload/sampling', [SamplingController::class, 'upload'])->name('samplings.upload-data');
 Route::post('import', [SamplingController::class, 'import'])->name('import');

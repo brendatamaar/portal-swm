@@ -23,6 +23,7 @@ class Users extends Authenticatable
         'email',
         'username',
         'password',
+        'avatar',
         'position_id',
         'site_id',
         'region_id',
