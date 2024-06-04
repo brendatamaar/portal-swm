@@ -18,54 +18,61 @@ class SuperAdminSeeder extends Seeder
     public function run()
     {
         // Creating Super Admin User
-        $superAdmin = Users::create([
+        $swm = Users::create([
             'nik' => $this->generateUniqueNIK(16),
-            'name' => 'Superadmin',
-            'username' => 'superadmin',
-            'email' => 'superadmin@gmail.com',
-            'position_id' => 1,
+            'name' => 'SWM User',
+            'username' => 'swm_user',
+            'email' => 'swm@gmail.com',
             'password' => '123456',
             'site_id' => '00001',
             'region_id' => 1
         ]);
-        $superAdmin->assignRole('Super Admin');
+        $swm->assignRole('SWM');
 
         // Creating Admin User
-        $admin = Users::create([
+        $reg_manager = Users::create([
             'nik' => $this->generateUniqueNIK(16),
-            'name' => 'Admin',
-            'username' => 'admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'Regional Manager User',
+            'username' => 'reg_manager_user',
+            'email' => 'reg_manager@gmail.com',
             'password' => '123456',
-            'position_id' => 1,
             'site_id' => '00001',
             'region_id' => 1
         ]);
-        $admin->assignRole('Admin');
+        $reg_manager->assignRole('Regional Manager');
 
-        $worker = Users::create([
+        $store_manager = Users::create([
             'nik' => $this->generateUniqueNIK(16),
-            'name' => 'Worker',
-            'username' => 'worker',
-            'email' => 'worker@gmail.com',
+            'name' => 'Store Manager User',
+            'username' => 'store_manager_user',
+            'email' => 'store_manager@gmail.com',
             'password' => '123456',
-            'position_id' => 2,
             'site_id' => '00001',
             'region_id' => 1
         ]);
-        $worker->assignRole('Worker');
+        $store_manager->assignRole('Store Manager');
 
-        $viewer = Users::create([
+        $mod = Users::create([
             'nik' => $this->generateUniqueNIK(16),
-            'name' => 'Viewer',
-            'username' => 'viewer',
-            'email' => 'viewer@gmail.com',
+            'name' => 'MOD User',
+            'username' => 'mod_user',
+            'email' => 'mod@gmail.com',
             'password' => '123456',
-            'position_id' => 2,
             'site_id' => '00001',
             'region_id' => 1
         ]);
-        $viewer->assignRole('Viewer');
+        $mod->assignRole('MOD');
+
+        $leader = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'Leader User',
+            'username' => 'leader_user',
+            'email' => 'leader@gmail.com',
+            'password' => '123456',
+            'site_id' => '00001',
+            'region_id' => 1
+        ]);
+        $leader->assignRole('Leader');
     }
 
     /**

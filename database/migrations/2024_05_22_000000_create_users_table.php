@@ -20,12 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('username')->unique();
             $table->string('password');
-            $table->unsignedBigInteger('position_id');
             $table->string('site_id');
             $table->unsignedBigInteger('region_id');
             $table->timestamps();
 
-            $table->foreign('position_id')->references('id')->on('positions');
             $table->foreign('site_id')->references('site_id')->on('stores');
             $table->foreign('region_id')->references('id')->on('regions');
             

@@ -68,8 +68,4 @@ class Users extends Authenticatable
         return $this->belongsTo(Regions::class, 'region_id');
     }
 
-    public function positions()
-    {
-        return $this->belongsTo(Positions::class, 'position_id');
-    }
 }

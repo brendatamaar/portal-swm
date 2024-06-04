@@ -16,13 +16,11 @@ use App\Http\Controllers\SamplingController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth/login');
-// })->middleware('guest');
+Route::get('/login', function () {
+    return view('auth/login');
+})->middleware('guest');
 
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resources([
     'roles' => RoleController::class,
@@ -64,19 +62,6 @@ Route::group(['prefix' => 'advanced-ui'], function(){
     Route::get('tree-view', function () { return view('pages.advanced-ui.tree-view'); });
 });
 
-Route::group(['prefix' => 'forms'], function(){
-    Route::get('basic-elements', function () { return view('pages.forms.basic-elements'); });
-    Route::get('advanced-elements', function () { return view('pages.forms.advanced-elements'); });
-    Route::get('dropify', function () { return view('pages.forms.dropify'); });
-    Route::get('form-validation', function () { return view('pages.forms.form-validation'); });
-    Route::get('step-wizard', function () { return view('pages.forms.step-wizard'); });
-    Route::get('wizard', function () { return view('pages.forms.wizard'); });
-});
-
-Route::group(['prefix' => 'editors'], function(){
-    Route::get('text-editor', function () { return view('pages.editors.text-editor'); });
-    Route::get('code-editor', function () { return view('pages.editors.code-editor'); });
-});
 
 Route::group(['prefix' => 'charts'], function(){
     Route::get('chartjs', function () { return view('pages.charts.chartjs'); });

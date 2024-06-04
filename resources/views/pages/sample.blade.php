@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-  {!! Html::style('/assets/plugins/dragula/dragula.min.css') !!}
+  <link href="{{ asset('assets/plugins/dragula/dragula.min.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -9,9 +9,9 @@
 @endsection
 
 @push('plugin-scripts')
-  {!! Html::script('/assets/plugins/dragula/dragula.min.js') !!}
+  <script src="{{ asset('assets/plugins/dragula/dragula.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-  {!! Html::script('/assets/js/dragula.js') !!}
+  <script src="{{ asset('assets/js/dragula.js') }}"></script>
 @endpush

@@ -15,24 +15,66 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'Super Admin']);
-        $admin = Role::create(['name' => 'Admin']);
-        $worker = Role::create(['name' => 'Worker']);
-        $viewer = Role::create(['name' => 'Viewer']);
+        Role::create(['name' => 'SWM']);
+        $reg_manager = Role::create(['name' => 'Regional Manager']);
+        $store_manager = Role::create(['name' => 'Store Manager']);
+        $mod = Role::create(['name' => 'MOD']);
+        $leader = Role::create(['name' => 'Leader']);
 
-        $admin->givePermissionTo([
-            'create-user',
-            'edit-user',
-            'delete-user'
+        $reg_manager->givePermissionTo([
+            'view-dashboard',
+            'view-data-report',
+            'view-cycle-count',
+            'view-sampling',
+            'upload-sampling',
+            'progress-sampling',
+            'view-crumen'
         ]);
 
-        $worker->givePermissionTo([
-            'view-sampling'
+        $store_manager->givePermissionTo([
+            'view-dashboard',
+            'view-data-report',
+            'view-cycle-count',
+            'progress-cycle-count',
+            'upload-cycle-count',
+            'view-sampling',
+            'upload-sampling',
+            'progress-sampling',
+            'view-crumen',
+            'upload-crumen',
+            'delete-crumen',
+            'export-crumen',
+            
         ]);
 
-        $viewer->givePermissionTo([
-            'view-chart',
-            'view-export'
+        $mod->givePermissionTo([
+            'view-dashboard',
+            'view-data-report',
+            'view-cycle-count',
+            'progress-cycle-count',
+            'upload-cycle-count',
+            'view-sampling',
+            'upload-sampling',
+            'progress-sampling',
+            'view-crumen',
+            'upload-crumen',
+            'delete-crumen',
+            'export-crumen',
+        ]);
+
+        $leader->givePermissionTo([
+            'view-dashboard',
+            'view-data-report',
+            'view-cycle-count',
+            'progress-cycle-count',
+            'upload-cycle-count',
+            'view-sampling',
+            'upload-sampling',
+            'progress-sampling',
+            'view-crumen',
+            'upload-crumen',
+            'delete-crumen',
+            'export-crumen',
         ]);
     }
 }

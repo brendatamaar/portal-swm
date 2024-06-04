@@ -26,7 +26,7 @@
           <h4 class="card-title mb-0">Sales Performance</h4>
           <div id="line-traffic-legend"></div>
         </div>
-        <div class="row"> 
+        <div class="row">
           <div class="col-md-4">
             <h2 class="mb-0 font-weight-medium">$5,341</h2>
             <p class="mb-5 text-muted">Sales</p>
@@ -158,9 +158,10 @@
 @endsection
 
 @push('plugin-scripts')
-  {!! Html::script('/assets/plugins/chartjs/chart.min.js') !!}
+  <script src="{{ asset('assets/plugins/chartjs/chart.min.js') }}"></script>
+
 @endpush
 
 @push('custom-scripts')
-  {!! Html::script('/assets/js/chart.js') !!}
+  <script src="{{ asset('assets/js/chart.js') }}"></script>
 @endpush

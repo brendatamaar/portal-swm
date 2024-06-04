@@ -10,18 +10,35 @@
       <span class="mdi mdi-menu"></span>
     </button>
     <ul class="navbar-nav navbar-nav-right">
+      @auth
+      <!-- The user is authenticated -->
       <li class="nav-item dropdown d-none d-xl-inline-block">
-        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-          <span class="profile-text d-none d-md-inline-flex">Ilham Fahmi A</span>
-          <img class="img-xs rounded-circle" src="{{ url('assets/images/faces/face99.jpg') }}" alt="Profile image"> </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-          <a class="dropdown-item mt-2"> Manage Accounts </a>
-          <a class="dropdown-item"> Change Password </a>
-          <a class="dropdown-item"> Sign Out </a>
-        </div>
+      <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+        <span class="profile-text d-none d-md-inline-flex">{{ Auth::user()->name }}</span>
+        <img class="img-xs rounded-circle" src="{{ url('assets/images/faces/face99.jpg') }}" alt="Profile image"> </a>
+      <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+        <a class="dropdown-item mt-2"> Manage Accounts </a>
+        <a class="dropdown-item"> Change Password </a>
+        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+      document.getElementById('logout-form').submit();"> Sign Out </a>
+      </div>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+      </form>
       </li>
+    @else
+      <!-- The user is not authenticated -->
+      <li class="nav-item dropdown d-none d-xl-inline-block">
+      <a class="nav-link" href="{{ route('login') }}">
+        <span class="profile-text d-none d-md-inline-flex">Login</span>
+        <img class="img-xs rounded-circle" src="{{ url('assets/images/faces-clipart/pic-1.png') }}"> </a>
+      </li>
+    @endauth
+
+
     </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+      data-toggle="offcanvas">
       <span class="mdi mdi-menu icon-menu"></span>
     </button>
   </div>
