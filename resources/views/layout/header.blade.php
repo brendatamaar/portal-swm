@@ -15,7 +15,9 @@
       <li class="nav-item dropdown d-none d-xl-inline-block">
       <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
         <span class="profile-text d-none d-md-inline-flex">{{ Auth::user()->name }}</span>
+        @if (Auth::user()->avatar)
         <img class="img-xs rounded-circle" src="/avatars/{{ Auth::user()->avatar }}" alt="Profile image"> </a>
+        @endif
       <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
         <a class="dropdown-item mt-2" href="{{ route('profile.index') }}"> Manage Accounts </a>
         <a class="dropdown-item" href="{{ route('profile.change-password') }}"> Change Password </a>

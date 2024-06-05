@@ -75,8 +75,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role): View
     {
-        if($role->name=='Super Admin'){
-            abort(403, 'SUPER ADMIN ROLE CAN NOT BE EDITED');
+        if($role->name=='SWM'){
+            abort(403, 'SWM ROLE CAN NOT BE EDITED');
         }
 
         $rolePermissions = DB::table("role_has_permissions")->where("role_id",$role->id)
@@ -112,8 +112,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role): RedirectResponse
     {
-        if($role->name=='Super Admin'){
-            abort(403, 'SUPER ADMIN ROLE CAN NOT BE DELETED');
+        if($role->name=='SWM'){
+            abort(403, 'SWM ROLE CAN NOT BE DELETED');
         }
         if(auth()->user()->hasRole($role->name)){
             abort(403, 'CAN NOT DELETE SELF ASSIGNED ROLE');

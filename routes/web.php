@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
@@ -26,6 +27,7 @@ Auth::routes();
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
+    'stores' => StoreController::class,
     'samplings' => SamplingController::class,
     'profile' => ProfileController::class,
 ]);
