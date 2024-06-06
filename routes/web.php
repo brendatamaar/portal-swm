@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CycleCountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::resources([
     'users' => UserController::class,
     'stores' => StoreController::class,
     'samplings' => SamplingController::class,
+    'cycle_counts' => CycleCountController::class,
     'profile' => ProfileController::class,
 ]);
 

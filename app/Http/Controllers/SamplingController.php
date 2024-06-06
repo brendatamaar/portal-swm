@@ -26,9 +26,7 @@ class SamplingController extends Controller
      */
     public function upload(): View
     {
-        return view('sampling.upload', [
-            'sampling' => Samplings::orderBy('id', 'DESC')->paginate(10)
-        ]);
+        
     }
 
     /**
@@ -36,8 +34,8 @@ class SamplingController extends Controller
      */
     public function index(): View
     {
-        return view('sampling.create', [
-            'sampling' => Samplings::orderBy('id', 'DESC')->paginate(10)
+        return view('samplings.index', [
+            'samplings' => Samplings::orderBy('id', 'DESC')->paginate(10)
         ]);
     }
 
@@ -46,7 +44,9 @@ class SamplingController extends Controller
      */
     public function create(): View
     {
-        // 
+        return view('samplings.upload', [
+            'samplings' => Samplings::orderBy('id', 'DESC')->paginate(10)
+        ]); 
     }
 
     /**

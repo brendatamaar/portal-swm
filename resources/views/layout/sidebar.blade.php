@@ -88,20 +88,20 @@
         @endcanany
         
         @canany(['view-cycle-count'])
-        <li class="nav-item {{ active_class(['basic-ui2/*']) }}">
-            <a class="nav-link" data-toggle="collapse" href="#basic-ui2"
-                aria-expanded="{{ is_active_route(['basic-ui2/*']) }}" aria-controls="basic-ui2">
+        <li class="nav-item {{ active_class(['cycle_counts/*']) }}">
+            <a class="nav-link" data-toggle="collapse" href="#cycle_counts"
+                aria-expanded="{{ is_active_route(['cycle_counts/*']) }}" aria-controls="cycle_counts">
                 <i class="menu-icon mdi mdi-sync-alert"></i>
                 <span class="menu-title">Cycle Count</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse {{ show_class(['basic-ui2/*']) }}" id="basic-ui2">
+            <div class="collapse {{ show_class(['cycle_counts/*']) }}" id="cycle_counts">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item {{ active_class(['basic-ui2/buttons']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui2/buttons') }}">Upload Data Cycle Count</a>
+                    <li class="nav-item {{ active_class(['cycle_counts/create']) }}">
+                        <a class="nav-link" href="{{ route('cycle_counts.create') }}">Upload Data Cycle Count</a>
                     </li>
-                    <li class="nav-item {{ active_class(['basic-ui2/dropdowns']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui2/dropdowns') }}">View Data Cycle Count</a>
+                    <li class="nav-item {{ active_class(['cycle_counts/index']) }}">
+                        <a class="nav-link" href="{{ route('cycle_counts.index') }}">View Data Cycle Count</a>
                     </li>
                     <li class="nav-item {{ active_class(['basic-ui2/typography']) }}">
                         <a class="nav-link" href="{{ url('/basic-ui2/typography') }}">Progress Cycle Count</a>
@@ -115,20 +115,20 @@
         @endcanany
 
         @canany(['view-sampling'])
-        <li class="nav-item {{ active_class(['basic-ui3/*']) }}">
-            <a class="nav-link" data-toggle="collapse" href="#basic-ui3"
-                aria-expanded="{{ is_active_route(['basic-ui3/*']) }}" aria-controls="basic-ui3">
+        <li class="nav-item {{ active_class(['samplings/*']) }}">
+            <a class="nav-link" data-toggle="collapse" href="#samplings"
+                aria-expanded="{{ is_active_route(['samplings/*']) }}" aria-controls="samplings">
                 <i class="menu-icon mdi mdi-bookmark"></i>
                 <span class="menu-title">Sampling</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse {{ show_class(['basic-ui3/*']) }}" id="basic-ui3">
+            <div class="collapse {{ show_class(['samplings/*']) }}" id="samplings">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item {{ active_class(['basic-ui3/buttons']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui3/buttons') }}">Upload Data Sampling</a>
+                    <li class="nav-item {{ active_class(['samplings/create']) }}">
+                        <a class="nav-link" href="{{ route('samplings.create') }}">Upload Data Sampling</a>
                     </li>
-                    <li class="nav-item {{ active_class(['basic-ui3/dropdowns']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui3/dropdowns') }}">View Data Upload Sampling</a>
+                    <li class="nav-item {{ active_class(['samplings/index']) }}">
+                        <a class="nav-link" href="{{ url('samplings.index') }}">View Data Upload Sampling</a>
                     </li>
                     <li class="nav-item {{ active_class(['basic-ui3/typography']) }}">
                         <a class="nav-link" href="{{ url('/basic-ui3/typography') }}">Progress Sampling</a>
