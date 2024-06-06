@@ -6,7 +6,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <a href="{{ route('stores.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+            <a href="{{ route('roles.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
         </div>
         <div class="card-body">
             <form action="{{ route('roles.update', $role->id) }}" method="post">

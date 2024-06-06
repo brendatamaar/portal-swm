@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class Regions extends Model
 {
-    use HasFactory;
+    protected $primaryKey = 'reg_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
-        'name',
+        'reg_id',
+        'reg_name',
     ];
 
     public function stores(): HasMany

@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Stores;
+use App\Models\Regions;
 
 class UserController extends Controller
 {
@@ -40,7 +42,8 @@ class UserController extends Controller
     public function create(): View
     {
         return view('users.create', [
-            'roles' => Role::pluck('name')->all()
+            'roles' => Role::pluck('name')->all(),
+            'regions' => Regions::pluck('reg_name', 'reg_id')->all()
         ]);
     }
 
@@ -81,10 +84,17 @@ class UserController extends Controller
             }
         }
 
+        // Get all stores based on the user's region ID
+        $stores = Stores::where('region_id', $user->region_id)->pluck('site_name', 'site_id');
+
+
         return view('users.edit', [
             'user' => $user,
             'roles' => Role::pluck('name')->all(),
-            'userRoles' => $user->roles->pluck('name')->all()
+            'regions' => Regions::pluck('reg_name', 'reg_id')->all(),
+            'userRoles' => $user->roles->pluck('name')->all(),
+            'userRegions' => $user->regions->pluck('reg_name')->all(),
+            'userStores' => $stores
         ]);
     }
 
@@ -124,4 +134,5 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->withSuccess('User is deleted successfully.');
     }
+
 }

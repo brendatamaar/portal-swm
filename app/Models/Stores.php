@@ -17,9 +17,9 @@ class Stores extends Model
         'site_name',
         'region_id',
     ];
-    public function region()
+    public function regions()
     {
-        return $this->belongsTo(Regions::class);
+        return $this->belongsTo(Regions::class, 'region_id');
     }
 
     public function users()

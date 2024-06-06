@@ -18,11 +18,14 @@ class StoreSeeder extends Seeder
 
         // Seed regions
         $regions = [
-            ['name' => 'HO'],
-            ['name' => 'Region 1'],
-            ['name' => 'Region 2'],
-            ['name' => 'Region 3'],
-            ['name' => 'Region 4'],
+            ['reg_id' => 'Reg000', 'reg_name' => 'HO'],
+            ['reg_id' => 'Reg001','reg_name' => 'Region 1'],
+            ['reg_id' => 'Reg002','reg_name' => 'Region 2'],
+            ['reg_id' => 'Reg003','reg_name' => 'Region 3'],
+            ['reg_id' => 'Reg004','reg_name' => 'Region 4'],
+            ['reg_id' => 'Reg005','reg_name' => 'Region 5'],
+            ['reg_id' => 'Reg006','reg_name' => 'Region 6'],
+            ['reg_id' => 'Reg007','reg_name' => 'Region 7'],
         ];
 
         foreach ($regions as $region) {
@@ -34,17 +37,17 @@ class StoreSeeder extends Seeder
             [
                 'site_id' => '00001',
                 'site_name' => 'HO',
-                'region_id' => 1
+                'region_id' => 'Reg000'
             ],
             [
                 'site_id' => '10044',
                 'site_name' => 'Mitra10 Kota Harapan Indah',
-                'region_id' => 2
+                'region_id' => 'Reg001'
             ],
             [
                 'site_id' => '10003',
                 'site_name' => 'Mitra10 Cibubur',
-                'region_id' => 2
+                'region_id' => 'Reg001'
             ],
         ];
 

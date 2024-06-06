@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateStoreRequest;
+use App\Models\Regions;
 use App\Models\Stores;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -36,7 +37,7 @@ class StoreController extends Controller
     public function create()
     {
         return view('stores.create', [
-            'stores' => Stores::pluck('name')->all()
+            'regions' => Regions::pluck('reg_name', 'reg_id')->all()
         ]);
     }
 
@@ -74,7 +75,9 @@ class StoreController extends Controller
     public function edit(Stores $store): View
     {
         return view('stores.edit', [
-            'store' => $store
+            'store' => $store,
+            'regions' => Regions::pluck('reg_name', 'reg_id')->all(),
+            'storeRegions' => $store->regions->pluck('reg_id')->all()
         ]);
     }
 
@@ -101,5 +104,11 @@ class StoreController extends Controller
         $store->delete();
         return redirect()->route('stores.index')
             ->withSuccess('Store is deleted successfully.');
+    }
+
+    public function fetchSitesByRegion($region_id)
+    {
+        $sites = Stores::where('region_id', $region_id)->get();
+        return response()->json($sites);
     }
 }

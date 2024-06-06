@@ -35,6 +35,8 @@ Route::resources([
 Route::get('change-password', [ProfileController::class, 'indexChangePassword'])->name('profile.update-password');
 Route::post('update-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 
+Route::get('/api/get-sites/{region_id}', [StoreController::class, 'fetchSitesByRegion']);
+
 Route::get('upload/sampling', [SamplingController::class, 'upload'])->name('samplings.upload-data');
 Route::post('import', [SamplingController::class, 'import'])->name('import');
 

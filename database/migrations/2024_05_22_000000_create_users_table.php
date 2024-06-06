@@ -22,11 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->string('site_id');
-            $table->unsignedBigInteger('region_id');
+            $table->string('region_id');
             $table->timestamps();
 
             $table->foreign('site_id')->references('site_id')->on('stores');
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('region_id')->references('reg_id')->on('regions');
             
         });
     }

@@ -16,8 +16,8 @@ class CreateStoresTable extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->string('site_id')->primary();
             $table->string('site_name');
-            $table->unsignedBigInteger('region_id');
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->string('region_id');
+            $table->foreign('region_id')->references('reg_id')->on('regions')->onDelete('cascade');
             $table->timestamps();
         });
     }

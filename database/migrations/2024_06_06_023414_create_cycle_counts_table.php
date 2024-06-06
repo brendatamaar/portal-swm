@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSamplingsTable extends Migration
+class CreateCycleCountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSamplingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('samplings', function (Blueprint $table) {
+        Schema::create('cycle_counts', function (Blueprint $table) {
             $table->id();
             $table->string('site_id');
             $table->string('category')->nullable();
@@ -22,23 +22,14 @@ class CreateSamplingsTable extends Migration
             $table->string('item_name')->nullable();
             $table->string('uom')->nullable();
             $table->string('location')->nullable();
-            $table->string('loc_detail')->nullable();
+            $table->string('lottable_2')->nullable();
             $table->integer('qty_sistem_wms')->nullable();
-            $table->integer('qty_available_wms')->nullable();
-            $table->integer('qty_allocated_wms')->nullable();
-            $table->integer('qty_nav')->nullable();
             $table->integer('qty_fisik')->nullable();
-            $table->integer('selisih_fisik_wms')->nullable();
-            $table->string('hit_miss_fisik_wms')->nullable();
-            $table->integer('total_qty_item_wms')->nullable();
-            $table->integer('selisih_wms_nav')->nullable();
-            $table->string('hit_miss_wms_nav')->nullable();
-            $table->string('note')->nullable();
+            $table->string('hit_miss')->nullable();
             $table->string('upload_date')->nullable();
             $table->timestamps();
 
             $table->foreign('site_id')->references('site_id')->on('stores');
-            
         });
     }
 
@@ -49,6 +40,6 @@ class CreateSamplingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('samplings');
+        Schema::dropIfExists('cycle_counts');
     }
 }

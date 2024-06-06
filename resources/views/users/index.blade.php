@@ -29,7 +29,7 @@
                             <td data-content="Name">{{ $user->name }}</td>
                             <td data-content="NIK">{{ $user->nik }}</td>
                             <td data-content="Email">{{ $user->email }}</td>
-                            <td data-content="Region">{{ $user->regions->name }}</td>
+                            <td data-content="Region">{{ $user->regions->reg_name }}</td>
                             <td data-content="Site Name">{{ $user->stores->site_name }}</td>
                             <td data-content="Roles">
                                 @forelse ($user->getRoleNames() as $role)

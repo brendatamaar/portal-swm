@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Samplings extends Model
 {
     use HasFactory;
-    protected $table = "samplings";
+    protected $table = "cycle_counts";
     protected $fillable = [
         'site_id',
         'category',
@@ -17,18 +17,10 @@ class Samplings extends Model
         'item_name',
         'uom',
         'location',
-        'loc_detail',
+        'lottable_2',
         'qty_sistem_wms',
-        'qty_available_wms',
-        'qty_allocated_wms',
-        'qty_nav',
         'qty_fisik',
-        'selisih_fisik_wms',
-        'hit_miss_fisik_wms',
-        'total_qty_item_wms',
-        'selisih_wms_nav',
-        'hit_miss_wms_nav',
-        'note',
+        'hit_miss',
         'upload_date',
     ];
 }

@@ -7,7 +7,7 @@
             @can('create-user')
                 <a href="{{ route('stores.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add
                     New
-                    User</a>
+                    Store</a>
             @endcan
             <table class="table table-striped">
                 <thead>
@@ -23,7 +23,7 @@
                         <tr>
                             <td data-content="Site Id">{{ $store->site_id }}</td>
                             <td data-content="Site Name">{{ $store->site_name }}</td>
-                            <td data-content="Region">{{ $store->region->name }}</td>
+                            <td data-content="Region">{{ $store->regions->reg_name }}</td>
                             <td data-content="Action">
                                 <form action="{{ route('stores.destroy', $store->site_id) }}" method="post">
                                     @csrf

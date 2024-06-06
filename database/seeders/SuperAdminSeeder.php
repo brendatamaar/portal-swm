@@ -25,7 +25,7 @@ class SuperAdminSeeder extends Seeder
             'email' => 'swm@gmail.com',
             'password' => '123456',
             'site_id' => '00001',
-            'region_id' => 1
+            'region_id' => 'Reg000'
         ]);
         $swm->assignRole('SWM');
 
@@ -37,7 +37,7 @@ class SuperAdminSeeder extends Seeder
             'email' => 'reg_manager@gmail.com',
             'password' => '123456',
             'site_id' => '00001',
-            'region_id' => 1
+            'region_id' => 'Reg001'
         ]);
         $reg_manager->assignRole('Regional Manager');
 
@@ -48,7 +48,7 @@ class SuperAdminSeeder extends Seeder
             'email' => 'store_manager@gmail.com',
             'password' => '123456',
             'site_id' => '00001',
-            'region_id' => 1
+            'region_id' => 'Reg001'
         ]);
         $store_manager->assignRole('Store Manager');
 
@@ -59,7 +59,7 @@ class SuperAdminSeeder extends Seeder
             'email' => 'mod@gmail.com',
             'password' => '123456',
             'site_id' => '00001',
-            'region_id' => 1
+            'region_id' => 'Reg001'
         ]);
         $mod->assignRole('MOD');
 
@@ -70,7 +70,7 @@ class SuperAdminSeeder extends Seeder
             'email' => 'leader@gmail.com',
             'password' => '123456',
             'site_id' => '00001',
-            'region_id' => 1
+            'region_id' => 'Reg001'
         ]);
         $leader->assignRole('Leader');
     }
