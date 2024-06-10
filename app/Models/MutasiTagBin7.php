@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class MutasiTagBin7 extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'site_id',
+        'site_name',
+        'tag_bin_location',
+        'area',
+        'zone',
+        'status'
+    ];
 }
