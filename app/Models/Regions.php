@@ -21,8 +21,13 @@ class Regions extends Model
         return $this->hasMany(Stores::class);
     }
 
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(Users::class);
+    }
+
+    public function reg_mappings(): HasMany
+    {
+        return $this->hasMany(RegionImportMappings::class);
     }
 }
