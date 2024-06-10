@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sampling4;
+use App\Models\MutasiTagBin1;
 use Illuminate\Http\Request;
 
-class Sampling4Controller extends Controller
+class MutasiTagBinController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('mutasi_tag_bins.index', [
+            'mutasi_tag_bins' => MutasiTagBin1::orderBy('id', 'DESC')->paginate(10)
+        ]);
     }
 
     /**
@@ -41,10 +46,10 @@ class Sampling4Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sampling4  $sampling4
+     * @param  \App\Models\MutasiTagBin1  $mutasiTagBin1
      * @return \Illuminate\Http\Response
      */
-    public function show(Sampling4 $sampling4)
+    public function show(MutasiTagBin1 $mutasiTagBin1)
     {
         //
     }
@@ -52,10 +57,10 @@ class Sampling4Controller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sampling4  $sampling4
+     * @param  \App\Models\MutasiTagBin1  $mutasiTagBin1
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sampling4 $sampling4)
+    public function edit(MutasiTagBin1 $mutasiTagBin1)
     {
         //
     }
@@ -64,10 +69,10 @@ class Sampling4Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sampling4  $sampling4
+     * @param  \App\Models\MutasiTagBin1  $mutasiTagBin1
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sampling4 $sampling4)
+    public function update(Request $request, MutasiTagBin1 $mutasiTagBin1)
     {
         //
     }
@@ -75,10 +80,10 @@ class Sampling4Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sampling4  $sampling4
+     * @param  \App\Models\MutasiTagBin1  $mutasiTagBin1
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sampling4 $sampling4)
+    public function destroy(MutasiTagBin1 $mutasiTagBin1)
     {
         //
     }

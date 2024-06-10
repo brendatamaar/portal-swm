@@ -7,49 +7,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CycleCountController;
-use App\Http\Controllers\CycleCount1Controller;
-use App\Http\Controllers\CycleCount2Controller;
-use App\Http\Controllers\CycleCount3Controller;
-use App\Http\Controllers\CycleCount4Controller;
-use App\Http\Controllers\CycleCount5Controller;
-use App\Http\Controllers\CycleCount6Controller;
-use App\Http\Controllers\CycleCount7Controller;
 use App\Http\Controllers\SamplingController;
-use App\Http\Controllers\Sampling1Controller;
-use App\Http\Controllers\Sampling2Controller;
-use App\Http\Controllers\Sampling3Controller;
-use App\Http\Controllers\Sampling4Controller;
-use App\Http\Controllers\Sampling5Controller;
-use App\Http\Controllers\Sampling6Controller;
-use App\Http\Controllers\Sampling7Controller;
-use App\Http\Controllers\MutasiTagBin1Controller;
-use App\Http\Controllers\MutasiTagBin2Controller;
-use App\Http\Controllers\MutasiTagBin3Controller;
-use App\Http\Controllers\MutasiTagBin4Controller;
-use App\Http\Controllers\MutasiTagBin5Controller;
-use App\Http\Controllers\MutasiTagBin6Controller;
-use App\Http\Controllers\MutasiTagBin7Controller;
-use App\Http\Controllers\MutasiCW1Controller;
-use App\Http\Controllers\MutasiCW2Controller;
-use App\Http\Controllers\MutasiCW3Controller;
-use App\Http\Controllers\MutasiCW4Controller;
-use App\Http\Controllers\MutasiCW5Controller;
-use App\Http\Controllers\MutasiCW6Controller;
-use App\Http\Controllers\MutasiCW7Controller;
-use App\Http\Controllers\MutasiD1Controller;
-use App\Http\Controllers\MutasiD2Controller;
-use App\Http\Controllers\MutasiD3Controller;
-use App\Http\Controllers\MutasiD4Controller;
-use App\Http\Controllers\MutasiD5Controller;
-use App\Http\Controllers\MutasiD6Controller;
-use App\Http\Controllers\MutasiD7Controller;
-use App\Http\Controllers\CrystalReport1Controller;
-use App\Http\Controllers\CrystalReport2Controller;
-use App\Http\Controllers\CrystalReport3Controller;
-use App\Http\Controllers\CrystalReport4Controller;
-use App\Http\Controllers\CrystalReport5Controller;
-use App\Http\Controllers\CrystalReport6Controller;
-use App\Http\Controllers\CrystalReport7Controller;
+use App\Http\Controllers\MutasiTagBinController;
+use App\Http\Controllers\MutasiCWController;
+use App\Http\Controllers\MutasiDController;
+use App\Http\Controllers\CrystalReportController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,50 +35,12 @@ Route::resources([
     'users' => UserController::class,
     'stores' => StoreController::class,
     'samplings' => SamplingController::class,
-    'sampling1' => Sampling1Controller::class,
-    'sampling2' => Sampling2Controller::class,
-    'sampling3' => Sampling3Controller::class,
-    'sampling4' => Sampling4Controller::class,
-    'sampling5' => Sampling5Controller::class,
-    'sampling6' => Sampling6Controller::class,
-    'sampling7' => Sampling7Controller::class,
     'cycle_counts' => CycleCountController::class,
-    'cycle_count1' => CycleCount1Controller::class,
-    'cycle_count2' => CycleCount2Controller::class,
-    'cycle_count3' => CycleCount3Controller::class,
-    'cycle_count4' => CycleCount4Controller::class,
-    'cycle_count5' => CycleCount5Controller::class,
-    'cycle_count6' => CycleCount6Controller::class,
-    'cycle_count7' => CycleCount7Controller::class,
     'profile' => ProfileController::class,
-    'mutasi_tag_bin1' => MutasiTagBin1Controller::class,
-    'mutasi_tag_bin2' => MutasiTagBin2Controller::class,
-    'mutasi_tag_bin3' => MutasiTagBin3Controller::class,
-    'mutasi_tag_bin4' => MutasiTagBin4Controller::class,
-    'mutasi_tag_bin5' => MutasiTagBin5Controller::class,
-    'mutasi_tag_bin6' => MutasiTagBin6Controller::class,
-    'mutasi_tag_bin7' => MutasiTagBin7Controller::class,
-    'mutasi_cw1' => MutasiCW1Controller::class,
-    'mutasi_cw2' => MutasiCW2Controller::class,
-    'mutasi_cw3' => MutasiCW3Controller::class,
-    'mutasi_cw4' => MutasiCW4Controller::class,
-    'mutasi_cw5' => MutasiCW5Controller::class,
-    'mutasi_cw6' => MutasiCW6Controller::class,
-    'mutasi_cw7' => MutasiCW7Controller::class,
-    'mutasi_d1' => MutasiD1Controller::class,
-    'mutasi_d2' => MutasiD2Controller::class,
-    'mutasi_d3' => MutasiD3Controller::class,
-    'mutasi_d4' => MutasiD4Controller::class,
-    'mutasi_d5' => MutasiD5Controller::class,
-    'mutasi_d6' => MutasiD6Controller::class,
-    'mutasi_d7' => MutasiD7Controller::class,
-    'crystal_report1' => CrystalReport1Controller::class,
-    'crystal_report2' => CrystalReport2Controller::class,
-    'crystal_report3' => CrystalReport3Controller::class,
-    'crystal_report4' => CrystalReport4Controller::class,
-    'crystal_report5' => CrystalReport5Controller::class,
-    'crystal_report6' => CrystalReport6Controller::class,
-    'crystal_report7' => CrystalReport7Controller::class,
+    'mutasi_tag_bins' => MutasiTagBinController::class,
+    'mutasi_cws' => MutasiCWController::class,
+    'mutasi_ds' => MutasiDController::class,
+    'crystal_reports' => CrystalReportController::class,
 ]);
 
 Route::get('change-password', [ProfileController::class, 'indexChangePassword'])->name('profile.update-password');

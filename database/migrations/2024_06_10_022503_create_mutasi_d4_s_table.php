@@ -13,7 +13,7 @@ class CreateMutasiD4STable extends Migration
      */
     public function up()
     {
-        Schema::create('mutasi_d4_s', function (Blueprint $table) {
+        Schema::create('mutasi_d4s', function (Blueprint $table) {
             $table->id();
             $table->string('no_kertas')->nullable();
             $table->text('site_id')->nullable();
@@ -34,6 +34,6 @@ class CreateMutasiD4STable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mutasi_d4_s');
+        Schema::dropIfExists('mutasi_d4s');
     }
 }

@@ -13,7 +13,7 @@ class CreateMutasiCW4STable extends Migration
      */
     public function up()
     {
-        Schema::create('mutasi_c_w4_s', function (Blueprint $table) {
+        Schema::create('mutasi_cw4s', function (Blueprint $table) {
             $table->id();
             $table->string('no_kertas')->nullable();
             $table->text('site_id')->nullable();
@@ -33,6 +33,6 @@ class CreateMutasiCW4STable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mutasi_c_w4_s');
+        Schema::dropIfExists('mutasi_cw4s');
     }
 }

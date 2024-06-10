@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sampling7;
+use App\Models\MutasiCW1;
 use Illuminate\Http\Request;
 
-class Sampling7Controller extends Controller
+class MutasiCWController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('mutasi_cws.index', [
+            'mutasi_cws' => MutasiCW1::orderBy('id', 'DESC')->paginate(10)
+        ]);
     }
 
     /**
@@ -41,10 +46,10 @@ class Sampling7Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sampling7  $sampling7
+     * @param  \App\Models\MutasiCW1  $mutasiCW1
      * @return \Illuminate\Http\Response
      */
-    public function show(Sampling7 $sampling7)
+    public function show(MutasiCW1 $mutasiCW1)
     {
         //
     }
@@ -52,10 +57,10 @@ class Sampling7Controller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sampling7  $sampling7
+     * @param  \App\Models\MutasiCW1  $mutasiCW1
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sampling7 $sampling7)
+    public function edit(MutasiCW1 $mutasiCW1)
     {
         //
     }
@@ -64,10 +69,10 @@ class Sampling7Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sampling7  $sampling7
+     * @param  \App\Models\MutasiCW1  $mutasiCW1
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sampling7 $sampling7)
+    public function update(Request $request, MutasiCW1 $mutasiCW1)
     {
         //
     }
@@ -75,10 +80,10 @@ class Sampling7Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sampling7  $sampling7
+     * @param  \App\Models\MutasiCW1  $mutasiCW1
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sampling7 $sampling7)
+    public function destroy(MutasiCW1 $mutasiCW1)
     {
         //
     }

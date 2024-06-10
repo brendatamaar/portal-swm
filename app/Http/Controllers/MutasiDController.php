@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sampling3;
+use App\Models\MutasiD1;
 use Illuminate\Http\Request;
 
-class Sampling3Controller extends Controller
+class MutasiDController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('mutasi_ds.index', [
+            'mutasi_ds' => MutasiD1::orderBy('id', 'DESC')->paginate(10)
+        ]);
     }
 
     /**
@@ -41,10 +46,10 @@ class Sampling3Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sampling3  $sampling3
+     * @param  \App\Models\MutasiD1  $mutasiD1
      * @return \Illuminate\Http\Response
      */
-    public function show(Sampling3 $sampling3)
+    public function show(MutasiD1 $mutasiD1)
     {
         //
     }
@@ -52,10 +57,10 @@ class Sampling3Controller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sampling3  $sampling3
+     * @param  \App\Models\MutasiD1  $mutasiD1
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sampling3 $sampling3)
+    public function edit(MutasiD1 $mutasiD1)
     {
         //
     }
@@ -64,10 +69,10 @@ class Sampling3Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sampling3  $sampling3
+     * @param  \App\Models\MutasiD1  $mutasiD1
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sampling3 $sampling3)
+    public function update(Request $request, MutasiD1 $mutasiD1)
     {
         //
     }
@@ -75,10 +80,10 @@ class Sampling3Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sampling3  $sampling3
+     * @param  \App\Models\MutasiD1  $mutasiD1
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sampling3 $sampling3)
+    public function destroy(MutasiD1 $mutasiD1)
     {
         //
     }

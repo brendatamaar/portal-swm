@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MutasiTagBin5;
+use App\Models\CrystalReport1;
 use Illuminate\Http\Request;
 
-class MutasiTagBin5Controller extends Controller
+class CrystalReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('crystal_reports.index', [
+            'crystal_reports' => CrystalReport1::orderBy('id', 'DESC')->paginate(10)
+        ]);
     }
 
     /**
@@ -41,10 +46,10 @@ class MutasiTagBin5Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MutasiTagBin5  $mutasiTagBin5
+     * @param  \App\Models\CrystalReport1  $crystalReport1
      * @return \Illuminate\Http\Response
      */
-    public function show(MutasiTagBin5 $mutasiTagBin5)
+    public function show(CrystalReport1 $crystalReport1)
     {
         //
     }
@@ -52,10 +57,10 @@ class MutasiTagBin5Controller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MutasiTagBin5  $mutasiTagBin5
+     * @param  \App\Models\CrystalReport1  $crystalReport1
      * @return \Illuminate\Http\Response
      */
-    public function edit(MutasiTagBin5 $mutasiTagBin5)
+    public function edit(CrystalReport1 $crystalReport1)
     {
         //
     }
@@ -64,10 +69,10 @@ class MutasiTagBin5Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MutasiTagBin5  $mutasiTagBin5
+     * @param  \App\Models\CrystalReport1  $crystalReport1
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MutasiTagBin5 $mutasiTagBin5)
+    public function update(Request $request, CrystalReport1 $crystalReport1)
     {
         //
     }
@@ -75,10 +80,10 @@ class MutasiTagBin5Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MutasiTagBin5  $mutasiTagBin5
+     * @param  \App\Models\CrystalReport1  $crystalReport1
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MutasiTagBin5 $mutasiTagBin5)
+    public function destroy(CrystalReport1 $crystalReport1)
     {
         //
     }

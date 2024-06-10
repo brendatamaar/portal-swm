@@ -142,26 +142,26 @@
         @endcanany
 
         @canany(['view-crumen'])
-        <li class="nav-item {{ active_class(['basic-ui4/*']) }}">
-            <a class="nav-link" data-toggle="collapse" href="#basic-ui4"
-                aria-expanded="{{ is_active_route(['basic-ui3/*']) }}" aria-controls="basic-ui4">
+        <li class="nav-item {{ active_class(['crumens/*']) }}">
+            <a class="nav-link" data-toggle="collapse" href="#crumen"
+                aria-expanded="{{ is_active_route(['basic-ui3/*']) }}" aria-controls="crumen">
                 <i class="menu-icon mdi mdi-qrcode"></i>
                 <span class="menu-title">CRUMEN</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse {{ show_class(['basic-ui4/*']) }}" id="basic-ui4">
+            <div class="collapse {{ show_class(['basic-ui4/*']) }}" id="crumen">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item {{ active_class(['basic-ui4/buttons']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui4/buttons') }}">Cetak Barcode Lokasi</a>
+                    <li class="nav-item {{ active_class(['mutasi_tag_bins']) }}">
+                        <a class="nav-link" href="{{ url('mutasi_tag_bins') }}">Cetak Barcode Lokasi</a>
                     </li>
-                    <li class="nav-item {{ active_class(['basic-ui4/dropdowns']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui4/dropdowns') }}">Cetak Mutasi Tagbin C/W</a>
+                    <li class="nav-item {{ active_class(['mutasi_cws']) }}">
+                        <a class="nav-link" href="{{ url('mutasi_cws') }}">Cetak Mutasi Tagbin C/W</a>
                     </li>
-                    <li class="nav-item {{ active_class(['basic-ui4/typography']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui4/typography') }}">Cetak Mutasi Tagbin D</a>
+                    <li class="nav-item {{ active_class(['mutasi_ds']) }}">
+                        <a class="nav-link" href="{{ url('mutasi_ds') }}">Cetak Mutasi Tagbin D</a>
                     </li>
-                    <li class="nav-item {{ active_class(['basic-ui4/typography']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui4/typography') }}">Cetak Crystal Report</a>
+                    <li class="nav-item {{ active_class(['crystal_reports']) }}">
+                        <a class="nav-link" href="{{ url('crystal_reports') }}">Cetak Crystal Report</a>
                     </li>
                 </ul>
             </div>
