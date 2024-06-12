@@ -22,7 +22,7 @@ class MutasiTagBinController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
+        $user = auth()->user();
         $regionId = $user->region_id;
 
         // Fetch the import class for MutasiTagBin from the database

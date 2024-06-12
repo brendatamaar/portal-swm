@@ -10,12 +10,7 @@ class RegionImportMappings extends Model
     public $table = "region_imports";
     protected $fillable = [
         'region_id',
-        'import_class_mutasi_tag_bin',
-        'import_class_mutasi_c_w',
-        'import_class_mutasi_d',
-        'import_class_crystal_report',
-        'import_class_sampling',
-        'import_class_cycle_count',
+        'data_no',
     ];
 
     public function regions()

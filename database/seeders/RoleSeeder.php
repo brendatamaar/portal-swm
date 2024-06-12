@@ -44,7 +44,6 @@ class RoleSeeder extends Seeder
             'upload-crumen',
             'delete-crumen',
             'export-crumen',
-            
         ]);
 
         $mod->givePermissionTo([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateStoreRequest;
+use App\Models\RegionImportMappings;
 use App\Models\Regions;
 use App\Models\Stores;
 use Illuminate\Http\Request;
@@ -104,6 +105,29 @@ class StoreController extends Controller
         $store->delete();
         return redirect()->route('stores.index')
             ->withSuccess('Store is deleted successfully.');
+    }
+
+    public function indexMapping()
+    {
+        return view('stores.index_mapping', [
+            'mappings' => RegionImportMappings::orderBy('region_id')->paginate(10)
+        ]);
+    }
+
+    public function updateMapping(Request $request, $id)
+    {
+        $request->validate([
+            'data_no' => 'required|integer',
+        ]);
+
+        $regionMapping = RegionImportMappings::find($id);
+        if ($regionMapping) {
+            $regionMapping->data_no = $request->input('data_no');
+            $regionMapping->save();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 404);
     }
 
     public function fetchSitesByRegion($region_id)

@@ -30,6 +30,9 @@ Route::get('/login', function () {
 
 Auth::routes();
 
+Route::get('stores/mapping', [StoreController::class, 'indexMapping'])->name('stores.mapping');
+Route::post('stores/update-mapping/{id}', [StoreController::class, 'updateMapping']);
+
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
