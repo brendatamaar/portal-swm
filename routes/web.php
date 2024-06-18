@@ -31,7 +31,31 @@ Route::get('/login', function () {
 Auth::routes();
 
 Route::get('stores/mapping', [StoreController::class, 'indexMapping'])->name('stores.mapping');
-Route::post('stores/update-mapping/{id}', [StoreController::class, 'updateMapping']);
+Route::post('stores/update-mapping', [StoreController::class, 'updateMapping'])->name('stores.update-mapping');
+
+Route::post('import-excel-mutasi-tagbin', [MutasiTagBinController::class, 'importExcel']);
+Route::get('download-template-mutasi-tagbin', [MutasiTagBinController::class, 'downloadImportTemplate']);
+Route::get('delete-all-mutasi-tagbin', [MutasiTagBinController::class, 'deleteAll']);
+Route::get('generate-barcode-mutasi-tagbin', [MutasiTagBinController::class, 'cetakBarcode'])->name('mutasi-tagbin.cetak_barcode');
+Route::get('generate-qr-mutasi-tagbin', [MutasiTagBinController::class, 'cetakQR'])->name('mutasi-tagbin.cetak_qr');
+
+Route::post('import-excel-mutasi-cw', [MutasiCWController::class, 'importExcel']);
+Route::get('download-template-mutasi-cw', [MutasiCWController::class, 'downloadImportTemplate']);
+Route::get('delete-all-mutasi-cw', [MutasiCWController::class, 'deleteAll']);
+Route::get('generate-barcode-mutasi-cw', [MutasiCWController::class, 'cetakBarcode'])->name('mutasi-cw.cetak_barcode');
+Route::get('generate-qr-mutasi-cw', [MutasiCWController::class, 'cetakQR'])->name('mutasi-cw.cetak_qr');
+
+Route::post('import-excel-mutasi-d', [MutasiDController::class, 'importExcel']);
+Route::get('download-template-mutasi-d', [MutasiDController::class, 'downloadImportTemplate']);
+Route::get('delete-all-mutasi-d', [MutasiDController::class, 'deleteAll']);
+Route::get('generate-barcode-mutasi-d', [MutasiDController::class, 'cetakBarcode'])->name('mutasi-d.cetak_barcode');
+Route::get('generate-qr-mutasi-d', [MutasiDController::class, 'cetakQR'])->name('mutasi-d.cetak_qr');
+
+Route::post('import-excel-crystal-report', [CrystalReportController::class, 'importExcel']);
+Route::get('download-template-crystal-report', [CrystalReportController::class, 'downloadImportTemplate']);
+Route::get('delete-all-crystal-report', [CrystalReportController::class, 'deleteAll']);
+Route::get('generate-barcode-crystal-report', [CrystalReportController::class, 'cetakBarcode'])->name('crystal-report.cetak_barcode');
+Route::get('generate-qr-crystal-report', [CrystalReportController::class, 'cetakQR'])->name('crystal-report.cetak_qr');
 
 Route::resources([
     'roles' => RoleController::class,

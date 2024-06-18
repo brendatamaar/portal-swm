@@ -114,20 +114,21 @@ class StoreController extends Controller
         ]);
     }
 
-    public function updateMapping(Request $request, $id)
+    public function updateMapping(Request $request)
     {
         $request->validate([
             'data_no' => 'required|integer',
+            'region_id' => 'required|integer',
         ]);
 
-        $regionMapping = RegionImportMappings::find($id);
+        $regionMapping = RegionImportMappings::find($request->input('region_id'));
         if ($regionMapping) {
             $regionMapping->data_no = $request->input('data_no');
             $regionMapping->save();
-            return response()->json(['success' => true]);
+            return redirect()->route('stores.mapping')->with('status', 'Data updated successfully!');
         }
 
-        return response()->json(['success' => false], 404);
+        return redirect()->route('stores.mapping')->with('error', 'Failed to update data!');
     }
 
     public function fetchSitesByRegion($region_id)
