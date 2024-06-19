@@ -3,7 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\MutasiD1;
+use App\Models\MutasiD2;
+use App\Models\MutasiD3;
+use App\Models\MutasiD4;
+use App\Models\MutasiD5;
+use App\Models\MutasiD6;
+use App\Models\MutasiD7;
 use Illuminate\Http\Request;
+use App\Models\RegionImportMappings;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class MutasiDController extends Controller
 {
@@ -86,5 +97,120 @@ class MutasiDController extends Controller
     public function destroy(MutasiD1 $mutasiD1)
     {
         //
+    }
+
+    /**
+     * Remove all data.
+     */
+    public function deleteAll(): RedirectResponse
+    {
+        $user = auth()->user();
+        $regionId = $user->region_id;
+
+        // Fetch the import class for MutasiD from the database
+        $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            return redirect('mutasi_ds')->with('error', 'Invalid region ID or no import class defined for MutasiD!');
+        }
+
+        $modelClass = 'App\\Models\\MutasiD' . $mapping->data_no;
+
+        if (!class_exists($modelClass)) {
+            return redirect('mutasi_ds')->with('error', 'The specified import class does not exist.');
+        }
+
+        $modelClass::truncate();
+        return redirect()->route('mutasi_ds.index')
+            ->with('error', 'Semua data berhasil dihapus.');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $indexSheet = $request->input('sheet');
+        $user = auth()->user();
+        $regionId = $user->region_id;
+
+        // Fetch the import class for MutasiD from the database
+        $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            return redirect('mutasi_ds')->with('error', 'Invalid region ID or no import class defined for MutasiD!');
+        }
+
+        $importClass = 'App\\Imports\\MutasiD' . $mapping->data_no . 'Import';
+
+        try {
+            Excel::import(new $importClass($indexSheet), $request->file('file'));
+        } catch (\Exception $e) {
+            return redirect('mutasi_ds')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
+        }
+
+        return redirect('mutasi_ds')->with('status', 'Import excel di sheet ' . $indexSheet . ' berhasil');
+    }
+
+    public function downloadImportTemplate()
+    {
+        $path = base_path('/template/mutasi_d.xls');
+        ;
+
+        return response()->download($path, 'mutasi_d.xls', [
+            'Content-Type' => 'text/xls',
+        ]);
+    }
+
+    public function cetakBarcode()
+    {
+        $user = auth()->user();
+        $regionId = $user->region_id;
+
+        // Fetch the import class for MutasiD from the database
+        $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            return redirect('mutasi_ds')->with('error', 'Invalid region ID or no import class defined for MutasiD!');
+        }
+
+        $modelClass = 'App\\Models\\MutasiD' . $mapping->data_no;
+
+        if (!class_exists($modelClass)) {
+            return redirect('mutasi_ds')->with('error', 'The specified import class does not exist.');
+        }
+
+        $dataproduk = $modelClass::all()->groupBy('no_kertas');
+
+        $pdf = PDF::loadView('mutasi_ds.barcode', compact('dataproduk'));
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->setOption(['dpi' => 150, 'defaultFont' => 'serif']);
+        return $pdf->stream('mutasi_wtb.pdf');
+    }
+
+    public function cetakQR()
+    {
+        $user = auth()->user();
+        $regionId = $user->region_id;
+
+        // Fetch the import class for MutasiD from the database
+        $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            return redirect('mutasi_ds')->with('error', 'Invalid region ID or no import class defined for MutasiD!');
+        }
+
+        $modelClass = 'App\\Models\\MutasiD' . $mapping->data_no;
+
+        if (!class_exists($modelClass)) {
+            return redirect('mutasi_ds')->with('error', 'The specified import class does not exist.');
+        }
+
+        $dataproduk = $modelClass::all()->groupBy('no_kertas')->map(function ($items) {
+            // Menghapus duplikasi berdasarkan kolom tag_bin_location
+            return $items->unique('tag_bin_location');
+        })->toArray();
+        
+        $pdf = PDF::loadView('mutasi_ds.qr', compact('dataproduk'));
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->setOption(['dpi' => 150, 'defaultFont' => 'serif']);
+        return $pdf->stream('mutasi_wtb1.pdf');
     }
 }

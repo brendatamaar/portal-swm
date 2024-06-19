@@ -14,3 +14,14 @@ function is_active_route($path) {
 function show_class($path) {
   return call_user_func_array('Request::is', (array)$path) ? 'show' : '';
 }
+
+function get_next_key_array($array, $key)
+{
+    $keys = array_keys($array);
+    $position = array_search($key, $keys);
+    $nextKey = "1";
+    if (isset($keys[$position + 1])) {
+        $nextKey = $keys[$position + 1];
+    }
+    return $nextKey;
+}

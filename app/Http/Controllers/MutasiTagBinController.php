@@ -194,14 +194,27 @@ class MutasiTagBinController extends Controller
             return redirect('mutasi_tag_bins')->with('error', 'The specified import class does not exist.');
         }
 
-        $dataproduk = $modelClass::all()->groupBy('location')->map(function ($items) {
-            return $items->unique('item_no')->unique('item_name');
-                })->values();
+        // Ambil semua data produk dari database
+        $dataproduk = $modelClass::all()->filter(function ($produk) {
+            // Ambil karakter pertama dari tag_bin_location
+            $firstChar = substr($produk->tag_bin_location, 0, 1);
+            // Hanya ambil data yang berawalan 'C' atau 'W'
+            return $firstChar === 'C' || $firstChar === 'W';
+        });
 
-        $pdf = PDF::loadView('crystal_report1.barcode', compact('dataproduk'));
+        // Cek apakah data kosong
+        if ($dataproduk->isEmpty()) {
+            return redirect('mutasi_tag_bin1')->with('error', 'Tidak ada lokasi Topper/Warehouse. ');
+        }
+
+        // Konversi data ke array
+        $dataproduk = $dataproduk->toArray();
+
+        $no = 1;
+        $pdf = PDF::loadView('mutasi_tag_bins.barcode', compact('dataproduk', 'no'));
         $pdf->setPaper('a4', 'portrait');
         $pdf->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->stream('crystal_report1.pdf');
+        return $pdf->stream('mutasi_tag_bins.pdf');
     }
 
     public function cetakQR()
@@ -222,13 +235,24 @@ class MutasiTagBinController extends Controller
             return redirect('mutasi_tag_bins')->with('error', 'The specified import class does not exist.');
         }
 
-        $dataproduk = $modelClass::all()->groupBy('location')->map(function ($items) {
-            return $items->unique('item_no')->unique('item_name');
-                })->values();
+        // Ambil semua data produk dari database
+        $dataproduk = $modelClass::all()->filter(function($produk) {
+            // Ambil karakter pertama dari tag_bin_location
+            return substr($produk->tag_bin_location, 0, 1) === 'D';
+        });
 
-        $pdf = PDF::loadView('crystal_report1.qr', compact('dataproduk'));
+        // Cek apakah data kosong
+        if ($dataproduk->isEmpty()) {
+            return redirect('mutasi_tag_bin1')->with('error', 'Tidak ada lokasi Dipslay. ');
+        }
+
+        // Konversi data ke array
+        $dataproduk = $dataproduk->toArray();
+
+        $no = 1;
+        $pdf = PDF::loadView('mutasi_tag_bins.qr', compact('dataproduk', 'no'));
         $pdf->setPaper('a4', 'portrait');
         $pdf->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->stream('crystal_report1.pdf');
+        return $pdf->stream('mutasi_tag_bins.pdf');
     }
 }
