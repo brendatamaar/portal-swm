@@ -28,8 +28,48 @@ class CrystalReportController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $regionId = $user->region_id;
+        $siteId = $user->site_id;
+        
+        // Fetch the import class for MutasiTagBin from the database
+        $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            // Get instances of all models
+            $models = [
+                CrystalReport1::query(),
+                CrystalReport2::query(),
+                CrystalReport3::query(),
+                CrystalReport4::query(),
+                CrystalReport5::query(),
+                CrystalReport6::query(),
+                CrystalReport7::query(),
+            ];
+
+            // Merge all models using union
+            $mergedQuery = null;
+            foreach ($models as $model) {
+                if ($mergedQuery === null) {
+                    $mergedQuery = $model;
+                } else {
+                    $mergedQuery = $mergedQuery->union($model);
+                }
+            }
+
+            // Paginate the merged result
+            $crystalReports = $mergedQuery->orderBy('id', 'DESC')->paginate(10);
+            return view('crystal_reports.index', [
+                'crystal_reports' => $crystalReports
+            ]);
+        }
+
+        $modelClass = 'App\\Models\\MutasiTagBin' . $mapping->data_no;
+        // Fetch data based on the determined model
+        $crystalReports = $modelClass::where('site_id', $siteId)->orderBy('id', 'DESC')->paginate(10);
+
         return view('crystal_reports.index', [
-            'crystal_reports' => CrystalReport1::orderBy('id', 'DESC')->paginate(10)
+            'crystal_reports' => $crystalReports
         ]);
     }
 
@@ -106,6 +146,7 @@ class CrystalReportController extends Controller
     {
         $user = auth()->user();
         $regionId = $user->region_id;
+        $siteId = $user->site_id;
 
         // Fetch the import class for CrystalReport from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
@@ -120,7 +161,8 @@ class CrystalReportController extends Controller
             return redirect('crystal_reports')->with('error', 'The specified import class does not exist.');
         }
 
-        $modelClass::truncate();
+        $modelClass::where('site_id', $siteId)->delete();
+
         return redirect()->route('crystal_reports.index')
             ->with('error', 'Semua data berhasil dihapus.');
     }
@@ -130,6 +172,7 @@ class CrystalReportController extends Controller
         $indexSheet = $request->input('sheet');
         $user = auth()->user();
         $regionId = $user->region_id;
+        $siteId = $user->site_id;
 
         // Fetch the import class for CrystalReport from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
@@ -141,7 +184,7 @@ class CrystalReportController extends Controller
         $importClass = 'App\\Imports\\CrystalReport' . $mapping->data_no . 'Import';
 
         try {
-            Excel::import(new $importClass($indexSheet), $request->file('file'));
+            Excel::import(new $importClass($indexSheet, $siteId), $request->file('file'));
         } catch (\Exception $e) {
             return redirect('crystal_reports')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
         }

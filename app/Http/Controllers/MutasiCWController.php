@@ -28,8 +28,48 @@ class MutasiCWController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $regionId = $user->region_id;
+        $siteId = $user->site_id;
+        
+        // Fetch the import class for MutasiTagBin from the database
+        $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            // Get instances of all models
+            $models = [
+                MutasiCW1::query(),
+                MutasiCW2::query(),
+                MutasiCW3::query(),
+                MutasiCW4::query(),
+                MutasiCW5::query(),
+                MutasiCW6::query(),
+                MutasiCW7::query(),
+            ];
+
+            // Merge all models using union
+            $mergedQuery = null;
+            foreach ($models as $model) {
+                if ($mergedQuery === null) {
+                    $mergedQuery = $model;
+                } else {
+                    $mergedQuery = $mergedQuery->union($model);
+                }
+            }
+
+            // Paginate the merged result
+            $mutasiCWs = $mergedQuery->orderBy('id', 'DESC')->paginate(10);
+            return view('mutasi_cws.index', [
+                'mutasi_cws' => $mutasiCWs
+            ]);
+        }
+
+        $modelClass = 'App\\Models\\MutasiTagBin' . $mapping->data_no;
+        // Fetch data based on the determined model
+        $mutasiCWs = $modelClass::where('site_id', $siteId)->orderBy('id', 'DESC')->paginate(10);
+
         return view('mutasi_cws.index', [
-            'mutasi_cws' => MutasiCW1::orderBy('id', 'DESC')->paginate(10)
+            'mutasi_cws' => $mutasiCWs
         ]);
     }
 
@@ -106,6 +146,7 @@ class MutasiCWController extends Controller
     {
         $user = auth()->user();
         $regionId = $user->region_id;
+        $siteId = $user->site_id;
 
         // Fetch the import class for MutasiCW from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
@@ -120,7 +161,7 @@ class MutasiCWController extends Controller
             return redirect('mutasi_cws')->with('error', 'The specified import class does not exist.');
         }
 
-        $modelClass::truncate();
+        $modelClass::where('site_id', $siteId)->delete();
         return redirect()->route('mutasi_cws.index')
             ->with('error', 'Semua data berhasil dihapus.');
     }
@@ -130,6 +171,7 @@ class MutasiCWController extends Controller
         $indexSheet = $request->input('sheet');
         $user = auth()->user();
         $regionId = $user->region_id;
+        $siteId = $user->site_id;
 
         // Fetch the import class for MutasiCW from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
@@ -141,7 +183,7 @@ class MutasiCWController extends Controller
         $importClass = 'App\\Imports\\MutasiCW' . $mapping->data_no . 'Import';
 
         try {
-            Excel::import(new $importClass($indexSheet), $request->file('file'));
+            Excel::import(new $importClass($indexSheet, $siteId), $request->file('file'));
         } catch (\Exception $e) {
             return redirect('mutasi_cws')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
         }

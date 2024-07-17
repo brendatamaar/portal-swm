@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Models\CrystalReport6;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
@@ -11,11 +10,14 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 class CrystalReport6Import implements ToModel, WithStartRow, WithMultipleSheets
 {
     private $index_sheet = 0;
+    private $site_id;
 
-    public function __construct($index_sheet)
+    public function __construct($index_sheet, $site_id)
     {
         $this->index_sheet = $index_sheet - 1;
+        $this->site_id = $site_id;
     }
+
     /**
      * @param array $row
      *
@@ -23,9 +25,8 @@ class CrystalReport6Import implements ToModel, WithStartRow, WithMultipleSheets
      */
     public function model(array $row)
     {
-        //print_r($row);
         return new CrystalReport6([
-            'site_id'     => $row[0],
+            'site_id'     => $this->site_id,
             'site_name'    => $row[1],
             'location'    => $row[2],
             'location_type' => $row[3],

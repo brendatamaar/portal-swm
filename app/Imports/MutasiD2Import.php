@@ -11,10 +11,11 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 class MutasiD2Import implements ToModel, WithStartRow, WithMultipleSheets
 {
     private $index_sheet = 0;
-
-    public function __construct($index_sheet)
+    private $site_id;
+    public function __construct($index_sheet, $site_id)
     {
         $this->index_sheet = $index_sheet - 1;
+        $this->site_id = $site_id;
     }
     /**
      * @param array $row
@@ -26,7 +27,7 @@ class MutasiD2Import implements ToModel, WithStartRow, WithMultipleSheets
         //print_r($row);
         return new MutasiD2([
             'no_kertas'     => $row[0],
-            'site_id'    => $row[1],
+            'site_id'     => $this->site_id,
             'site_name'    => $row[2],
             'tag_bin_location' => $row[3],
             'area' => $row[4],

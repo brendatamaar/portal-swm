@@ -36,8 +36,10 @@
 
                     </div>
                 </div>
+                @canany(['upload-sampling'])
                 <button class="btn btn-success btn-block">Upload All Data Report <i class="mdi mdi-plus"></i>
                 </button>
+                @endcanany
             </div>
         </li>
         @canany(['view-dashboard'])
@@ -195,12 +197,16 @@
         </li>
         @endcanany
 
+        @canany(['view-backup'])
         <li class="nav-item">
             <a class="nav-link">
                 <i class="menu-icon mdi mdi-history"></i>
                 <span class="menu-title">History, Backup & Export</span>
             </a>
         </li>
+        @endcanany
+
+        @canany(['view-backup'])
         <li class="nav-item {{ active_class(['basic-ui5/*']) }}">
             <a class="nav-link" data-toggle="collapse" href="#basic-ui5"
                 aria-expanded="{{ is_active_route(['basic-ui3/*']) }}" aria-controls="basic-ui5">
@@ -219,6 +225,8 @@
                 </ul>
             </div>
         </li>
+        @endcanany
+        
         <li class="nav-item">
             <a class="nav-link">
                 <i class="menu-icon mdi mdi-comment-question-outline"></i>

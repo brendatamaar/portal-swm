@@ -32,14 +32,26 @@ class SuperAdminSeeder extends Seeder
         // Creating Admin User
         $reg_manager = Users::create([
             'nik' => $this->generateUniqueNIK(16),
-            'name' => 'Regional Manager User',
-            'username' => 'reg_manager_user',
-            'email' => 'reg_manager@gmail.com',
+            'name' => 'Regional Manager User 1',
+            'username' => 'reg_manager_user1',
+            'email' => 'reg_manager1@gmail.com',
             'password' => '123456',
-            'site_id' => '00001',
-            'region_id' => 'Reg001'
+            'site_id' => '10003',
+            'region_id' => 'Reg003'
         ]);
         $reg_manager->assignRole('Regional Manager');
+
+        // Creating Admin User
+        $reg_manager2 = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'Regional Manager User 2',
+            'username' => 'reg_manager_user2',
+            'email' => 'reg_manager2@gmail.com',
+            'password' => '123456',
+            'site_id' => '10004',
+            'region_id' => 'Reg006'
+        ]);
+        $reg_manager2->assignRole('Regional Manager');
 
         $store_manager = Users::create([
             'nik' => $this->generateUniqueNIK(16),

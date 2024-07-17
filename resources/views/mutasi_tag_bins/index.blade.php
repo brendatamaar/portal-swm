@@ -76,6 +76,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th scope="col">No.</th>
                             <th scope="col">Site ID</th>
                             <th scope="col">Site Name</th>
                             <th scope="col">Tag Bin Location</th>

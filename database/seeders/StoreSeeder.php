@@ -40,14 +40,49 @@ class StoreSeeder extends Seeder
                 'region_id' => 'Reg000'
             ],
             [
-                'site_id' => '10044',
-                'site_name' => 'Mitra10 Kota Harapan Indah',
-                'region_id' => 'Reg001'
+                'site_id' => '10003',
+                'site_name' => 'MITRA10 CIBUBUR',
+                'region_id' => 'Reg003'
             ],
             [
-                'site_id' => '10003',
-                'site_name' => 'Mitra10 Cibubur',
-                'region_id' => 'Reg001'
+                'site_id' => '10004',
+                'site_name' => 'MITRA10 DAAN MOGOT',
+                'region_id' => 'Reg006'
+            ],
+            [
+                'site_id' => '10005',
+                'site_name' => 'MITRA10 PERCETAKAN NEGARA',
+                'region_id' => 'Reg005'
+            ],
+            [
+                'site_id' => '10006',
+                'site_name' => 'MITRA10 PASAR BARU',
+                'region_id' => 'Reg004'
+            ],
+            [
+                'site_id' => '10007',
+                'site_name' => 'MITRA10 BINTARO',
+                'region_id' => 'Reg004'
+            ],
+            [
+                'site_id' => '10009',
+                'site_name' => 'MITRA10 CINERE',
+                'region_id' => 'Reg005'
+            ],
+            [
+                'site_id' => '10040',
+                'site_name' => 'MITRA10 FATMAWATI',
+                'region_id' => 'Reg004'
+            ],
+            [
+                'site_id' => '10042',
+                'site_name' => 'MITRA10 PANTAI INDAH KAPUK',
+                'region_id' => 'Reg006'
+            ],
+            [
+                'site_id' => '10044',
+                'site_name' => 'MITRA10 KOTA HARAPAN INDAH',
+                'region_id' => 'Reg003'
             ],
         ];
 

@@ -31,17 +31,43 @@ class MutasiTagBinController extends Controller
 
         $user = auth()->user();
         $regionId = $user->region_id;
-
+        $siteId = $user->site_id;
+        
         // Fetch the import class for MutasiTagBin from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect()->back()->with('error', 'Invalid region ID or no import class defined for MutasiTagBin!');
+            // Get instances of all models
+            $models = [
+                MutasiTagBin1::query(),
+                MutasiTagBin2::query(),
+                MutasiTagBin3::query(),
+                MutasiTagBin4::query(),
+                MutasiTagBin5::query(),
+                MutasiTagBin6::query(),
+                MutasiTagBin7::query(),
+            ];
+
+            // Merge all models using union
+            $mergedQuery = null;
+            foreach ($models as $model) {
+                if ($mergedQuery === null) {
+                    $mergedQuery = $model;
+                } else {
+                    $mergedQuery = $mergedQuery->union($model);
+                }
+            }
+
+            // Paginate the merged result
+            $mutasiTagBins = $mergedQuery->orderBy('id', 'DESC')->paginate(10);
+            return view('mutasi_tag_bins.index', [
+                'mutasi_tag_bins' => $mutasiTagBins
+            ]);
         }
 
         $modelClass = 'App\\Models\\MutasiTagBin' . $mapping->data_no;
-        // Fetch data based on the determined model
-        $mutasiTagBins = $modelClass::orderBy('id', 'DESC')->paginate(10);
+        // Fetch data based on the determined model and siteid
+        $mutasiTagBins = $modelClass::where('site_id', $siteId)->orderBy('id', 'DESC')->paginate(10);
 
         return view('mutasi_tag_bins.index', [
             'mutasi_tag_bins' => $mutasiTagBins
@@ -121,6 +147,7 @@ class MutasiTagBinController extends Controller
     {
         $user = auth()->user();
         $regionId = $user->region_id;
+        $siteId = $user->site_id;
 
         // Fetch the import class for MutasiTagBin from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
@@ -135,7 +162,7 @@ class MutasiTagBinController extends Controller
             return redirect('mutasi_tag_bins')->with('error', 'The specified import class does not exist.');
         }
 
-        $modelClass::truncate();
+        $modelClass::where('site_id', $siteId)->delete();
         return redirect()->route('mutasi_tag_bins.index')
             ->with('error', 'Semua data berhasil dihapus.');
 
@@ -146,6 +173,7 @@ class MutasiTagBinController extends Controller
         $indexSheet = $request->input('sheet');
         $user = auth()->user();
         $regionId = $user->region_id;
+        $siteId = $user->site_id;
 
         // Fetch the import class for MutasiTagBin from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
@@ -157,7 +185,7 @@ class MutasiTagBinController extends Controller
         $importClass = 'App\\Imports\\MutasiTagBin' . $mapping->data_no . 'Import';
 
         try {
-            Excel::import(new $importClass($indexSheet), $request->file('file'));
+            Excel::import(new $importClass($indexSheet, $siteId), $request->file('file'));
         } catch (\Exception $e) {
             return redirect('mutasi_tag_bins')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
         }
@@ -204,7 +232,7 @@ class MutasiTagBinController extends Controller
 
         // Cek apakah data kosong
         if ($dataproduk->isEmpty()) {
-            return redirect('mutasi_tag_bin1')->with('error', 'Tidak ada lokasi Topper/Warehouse. ');
+            return redirect('mutasi_tag_bins')->with('error', 'Tidak ada lokasi Topper/Warehouse. ');
         }
 
         // Konversi data ke array
@@ -236,14 +264,14 @@ class MutasiTagBinController extends Controller
         }
 
         // Ambil semua data produk dari database
-        $dataproduk = $modelClass::all()->filter(function($produk) {
+        $dataproduk = $modelClass::all()->filter(function ($produk) {
             // Ambil karakter pertama dari tag_bin_location
             return substr($produk->tag_bin_location, 0, 1) === 'D';
         });
 
         // Cek apakah data kosong
         if ($dataproduk->isEmpty()) {
-            return redirect('mutasi_tag_bin1')->with('error', 'Tidak ada lokasi Dipslay. ');
+            return redirect('mutasi_tag_bins')->with('error', 'Tidak ada lokasi Dipslay. ');
         }
 
         // Konversi data ke array
