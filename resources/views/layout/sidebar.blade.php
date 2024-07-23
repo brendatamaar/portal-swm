@@ -228,13 +228,13 @@
         @endcanany
         
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" href="{{ url('/faqs.index') }}">
                 <i class="menu-icon mdi mdi-comment-question-outline"></i>
                 <span class="menu-title">Let You Know</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" href="{{ url('/videos') }}">
                 <i class="menu-icon mdi mdi-video"></i>
                 <span class="menu-title">Leaning by Video</span>
             </a>

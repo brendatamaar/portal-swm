@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2024 at 11:19 AM
+-- Generation Time: Jul 23, 2024 at 08:14 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -379,6 +379,20 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE `faqs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -444,7 +458,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (49, '2024_06_10_023256_create_sampling5s_table', 1),
 (50, '2024_06_10_023333_create_sampling6s_table', 1),
 (51, '2024_06_10_023401_create_sampling7s_table', 1),
-(52, '2024_06_10_080503_create_region_import_mappings_table', 1);
+(52, '2024_06_10_080503_create_region_import_mappings_table', 1),
+(53, '2024_07_23_030658_create_videos_table', 1),
+(54, '2024_07_23_033420_create_faqs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -477,9 +493,10 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\Users', 1),
 (2, 'App\\Models\\Users', 2),
-(3, 'App\\Models\\Users', 3),
-(4, 'App\\Models\\Users', 4),
-(5, 'App\\Models\\Users', 5);
+(2, 'App\\Models\\Users', 3),
+(3, 'App\\Models\\Users', 4),
+(4, 'App\\Models\\Users', 5),
+(5, 'App\\Models\\Users', 6);
 
 -- --------------------------------------------------------
 
@@ -911,49 +928,49 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'view-role', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(2, 'create-role', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(3, 'update-role', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(4, 'delete-role', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(5, 'view-user', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(6, 'create-user', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(7, 'update-user', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(8, 'delete-user', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(9, 'view-store', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(10, 'create-store', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(11, 'update-store', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(12, 'delete-store', 'web', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-(13, 'view-region', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(14, 'create-region', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(15, 'update-region', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(16, 'delete-region', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(17, 'view-dashboard', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(18, 'view-data-report', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(19, 'upload-data-report', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(20, 'delete-data-report', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(21, 'update-data-report', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(22, 'view-cycle-count', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(23, 'upload-cycle-count', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(24, 'delete-cycle-count', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(25, 'update-cycle-count', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(26, 'progress-cycle-count', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(27, 'view-sampling', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(28, 'upload-sampling', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(29, 'delete-sampling', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(30, 'update-sampling', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(31, 'progress-sampling', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(32, 'view-crumen', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(33, 'upload-crumen', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(34, 'delete-crumen', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(35, 'export-crumen', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(36, 'view-history', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(37, 'export-history', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(38, 'create-letyouknow', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(39, 'edit-letyouknow', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(40, 'delete-letyouknow', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(41, 'upload-learning', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(42, 'edit-learning', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(43, 'delete-learning', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22');
+(1, 'view-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(2, 'create-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(3, 'update-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(4, 'delete-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(5, 'view-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(6, 'create-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(7, 'update-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(8, 'delete-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(9, 'view-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(10, 'create-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(11, 'update-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(12, 'delete-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(13, 'view-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(14, 'create-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(15, 'update-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(16, 'delete-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(17, 'view-dashboard', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(18, 'view-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(19, 'upload-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(20, 'delete-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(21, 'update-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(22, 'view-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(23, 'upload-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(24, 'delete-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(25, 'update-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(26, 'progress-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(27, 'view-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(28, 'upload-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(29, 'delete-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(30, 'update-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(31, 'progress-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(32, 'view-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(33, 'upload-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(34, 'delete-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(35, 'export-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(36, 'view-history', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
+(37, 'export-history', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(38, 'create-letyouknow', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(39, 'edit-letyouknow', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(40, 'delete-letyouknow', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(41, 'upload-learning', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(42, 'edit-learning', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(43, 'delete-learning', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04');
 
 -- --------------------------------------------------------
 
@@ -991,14 +1008,14 @@ CREATE TABLE `regions` (
 --
 
 INSERT INTO `regions` (`reg_id`, `reg_name`, `created_at`, `updated_at`) VALUES
-('Reg000', 'HO', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg001', 'Region 1', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg002', 'Region 2', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg003', 'Region 3', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg004', 'Region 4', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg005', 'Region 5', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg006', 'Region 6', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('Reg007', 'Region 7', '2024-06-19 02:19:21', '2024-06-19 02:19:21');
+('Reg000', 'HO', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg001', 'Region 1', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg002', 'Region 2', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg003', 'Region 3', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg004', 'Region 4', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg005', 'Region 5', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg006', 'Region 6', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('Reg007', 'Region 7', '2024-07-22 23:14:02', '2024-07-22 23:14:02');
 
 -- --------------------------------------------------------
 
@@ -1019,13 +1036,13 @@ CREATE TABLE `region_imports` (
 --
 
 INSERT INTO `region_imports` (`id`, `region_id`, `data_no`, `created_at`, `updated_at`) VALUES
-(1, 'Reg001', '1', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(2, 'Reg002', '2', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(3, 'Reg003', '3', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(4, 'Reg004', '4', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(5, 'Reg005', '5', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(6, 'Reg006', '6', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(7, 'Reg007', '7', '2024-06-19 02:19:22', '2024-06-19 02:19:22');
+(1, 'Reg001', '1', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(2, 'Reg002', '2', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(3, 'Reg003', '3', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(4, 'Reg004', '4', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(5, 'Reg005', '5', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(6, 'Reg006', '6', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(7, 'Reg007', '7', '2024-07-22 23:14:05', '2024-07-22 23:14:05');
 
 -- --------------------------------------------------------
 
@@ -1046,11 +1063,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'SWM', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(2, 'Regional Manager', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(3, 'Store Manager', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(4, 'MOD', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(5, 'Leader', 'web', '2024-06-19 02:19:22', '2024-06-19 02:19:22');
+(1, 'SWM', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(2, 'Regional Manager', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(3, 'Store Manager', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(4, 'MOD', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(5, 'Leader', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04');
 
 -- --------------------------------------------------------
 
@@ -1387,9 +1404,16 @@ CREATE TABLE `stores` (
 --
 
 INSERT INTO `stores` (`site_id`, `site_name`, `region_id`, `created_at`, `updated_at`) VALUES
-('00001', 'HO', 'Reg000', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('10003', 'Mitra10 Cibubur', 'Reg001', '2024-06-19 02:19:21', '2024-06-19 02:19:21'),
-('10044', 'Mitra10 Kota Harapan Indah', 'Reg001', '2024-06-19 02:19:21', '2024-06-19 02:19:21');
+('00001', 'HO', 'Reg000', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10003', 'MITRA10 CIBUBUR', 'Reg003', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10004', 'MITRA10 DAAN MOGOT', 'Reg006', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10005', 'MITRA10 PERCETAKAN NEGARA', 'Reg005', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10006', 'MITRA10 PASAR BARU', 'Reg004', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10007', 'MITRA10 BINTARO', 'Reg004', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10009', 'MITRA10 CINERE', 'Reg005', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10040', 'MITRA10 FATMAWATI', 'Reg004', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10042', 'MITRA10 PANTAI INDAH KAPUK', 'Reg006', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
+('10044', 'MITRA10 KOTA HARAPAN INDAH', 'Reg003', '2024-07-22 23:14:02', '2024-07-22 23:14:02');
 
 -- --------------------------------------------------------
 
@@ -1416,11 +1440,27 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nik`, `name`, `email`, `username`, `password`, `avatar`, `site_id`, `region_id`, `created_at`, `updated_at`) VALUES
-(1, '6319189593730995', 'SWM User', 'swm@gmail.com', 'swm_user', '$2y$10$n1gDPTnRTrrFGqcSpghNgeKKSH/NB13FAydejvRLJ2KjKGFe3ZJJG', NULL, '00001', 'Reg000', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(2, '6214471545697064', 'Regional Manager User', 'reg_manager@gmail.com', 'reg_manager_user', '$2y$10$mDacw5.06SR7dEePOWeqXebP7K0/WpW/EqbbmWMPLO6.BXI88LDxW', NULL, '00001', 'Reg001', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(3, '6169782943840950', 'Store Manager User', 'store_manager@gmail.com', 'store_manager_user', '$2y$10$9b2BV4w.hxmq25SfoQ.5uu4hdBBK8uMcSYO6oDyFGX8RzlJstVIHa', NULL, '00001', 'Reg001', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(4, '9319708291794904', 'MOD User', 'mod@gmail.com', 'mod_user', '$2y$10$UFtgzufRoTP9KiEzBhPCs.6oPB7wd1UBTgPvkzHOdTDteKXQYdYTO', NULL, '00001', 'Reg001', '2024-06-19 02:19:22', '2024-06-19 02:19:22'),
-(5, '2748901965558100', 'Leader User', 'leader@gmail.com', 'leader_user', '$2y$10$WbnxIwDpGzA8hlrQRlwwAudQIfLnKqlpI4F9ZckcpOxfteZ3AZx9u', NULL, '00001', 'Reg001', '2024-06-19 02:19:22', '2024-06-19 02:19:22');
+(1, '9022393189613541', 'SWM User', 'swm@gmail.com', 'swm_user', '$2y$10$KislyHGr48trrqgsPR5XCeFJGtfAgk39vqVW6ZpCiivReZlyo2ESi', NULL, '00001', 'Reg000', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(2, '2279403539290905', 'Regional Manager User 1', 'reg_manager1@gmail.com', 'reg_manager_user1', '$2y$10$tshJ/DxEkCqWGDUyF3485OS/3nsrF8mrHwvUF8GA3nUwx.SY3l94u', NULL, '10003', 'Reg003', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(3, '3577038200734021', 'Regional Manager User 2', 'reg_manager2@gmail.com', 'reg_manager_user2', '$2y$10$.e1HGiFGUuK3jrg2UOkfJuwT/f4LIVp.1p9SrSC.MUu6qw32EPM16', NULL, '10004', 'Reg006', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
+(4, '4486816599357761', 'Store Manager User', 'store_manager@gmail.com', 'store_manager_user', '$2y$10$Qb6XGUKUfsU6V1ofkoNZ7e1Fmfe4nPTxO7bo41/XoM5bqnXV7JFCC', NULL, '00001', 'Reg001', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(5, '6842722502693939', 'MOD User', 'mod@gmail.com', 'mod_user', '$2y$10$cpNRYV37dAMMJcWHFTDLO.1riwbo.0lusWcVAgMr/G.OQUiX72kf.', NULL, '00001', 'Reg001', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
+(6, '9246264065919914', 'Leader User', 'leader@gmail.com', 'leader_user', '$2y$10$/IYarYLDQOrY/mfSWSuVbuH5zMpZQxXF8D4DkHLVKTGzXI4zqkwr2', NULL, '00001', 'Reg001', '2024-07-22 23:14:05', '2024-07-22 23:14:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -1523,6 +1563,12 @@ ALTER TABLE `cycle_counts`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -1786,6 +1832,13 @@ ALTER TABLE `users`
   ADD KEY `users_region_id_foreign` (`region_id`);
 
 --
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `videos_user_id_foreign` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1886,10 +1939,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `mutasi_cw1s`
@@ -2093,7 +2152,13 @@ ALTER TABLE `samplings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -2148,6 +2213,12 @@ ALTER TABLE `stores`
 ALTER TABLE `users`
   ADD CONSTRAINT `users_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`reg_id`),
   ADD CONSTRAINT `users_site_id_foreign` FOREIGN KEY (`site_id`) REFERENCES `stores` (`site_id`);
+
+--
+-- Constraints for table `videos`
+--
+ALTER TABLE `videos`
+  ADD CONSTRAINT `videos_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
