@@ -216,11 +216,11 @@
             </a>
             <div class="collapse {{ show_class(['basic-ui5/*']) }}" id="basic-ui5">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item {{ active_class(['basic-ui5/buttons']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui5/buttons') }}">Data Let You Know</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('faqs.create') }}">Data Let You Know</a>
                     </li>
-                    <li class="nav-item {{ active_class(['basic-ui5/dropdowns']) }}">
-                        <a class="nav-link" href="{{ url('/basic-ui5/dropdowns') }}">Data Leaning by Video</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('videos.create') }}">Data Leaning by Video</a>
                     </li>
                 </ul>
             </div>
@@ -228,7 +228,7 @@
         @endcanany
         
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/faqs.index') }}">
+            <a class="nav-link" href="{{ url('/faqs') }}">
                 <i class="menu-icon mdi mdi-comment-question-outline"></i>
                 <span class="menu-title">Let You Know</span>
             </a>

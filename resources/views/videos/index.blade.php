@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-    <a href="{{ route('videos/create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Upload
+    <a href="{{ route('videos.create') }}" class="btn btn-success btn-sm mb-4 mx-2"><i class="bi bi-plus-circle"></i> Upload
         New
         Video</a>
     @foreach ($videos as $video)

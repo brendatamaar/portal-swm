@@ -58,10 +58,6 @@ Route::get('delete-all-crystal-report', [CrystalReportController::class, 'delete
 Route::get('generate-barcode-crystal-report', [CrystalReportController::class, 'cetakBarcode'])->name('crystal-report.cetak_barcode');
 Route::get('generate-qr-crystal-report', [CrystalReportController::class, 'cetakQR'])->name('crystal-report.cetak_qr');
 
-Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
-Route::get('/videos/create', [VideoController::class, 'create'])->name('videos.create');
-Route::post('/videos', [VideoController::class, 'store'])->name('videos.store');
-
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
@@ -73,7 +69,8 @@ Route::resources([
     'mutasi_cws' => MutasiCWController::class,
     'mutasi_ds' => MutasiDController::class,
     'crystal_reports' => CrystalReportController::class,
-    'faqs', FaqController::class
+    'videos'=> VideoController::class,
+    'faqs'=> FaqController::class
 ]);
 
 Route::get('change-password', [ProfileController::class, 'indexChangePassword'])->name('profile.update-password');
