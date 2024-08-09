@@ -9,6 +9,7 @@ use App\Models\MutasiCW4;
 use App\Models\MutasiCW5;
 use App\Models\MutasiCW6;
 use App\Models\MutasiCW7;
+use App\Imports\MutasiCWImport;
 use Illuminate\Http\Request;
 use App\Models\RegionImportMappings;
 use Maatwebsite\Excel\Facades\Excel;
@@ -152,7 +153,16 @@ class MutasiCWController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('mutasi_cws')->with('error', 'Invalid region ID or no import class defined for MutasiCW!');
+            MutasiCW1::truncate();
+            MutasiCW2::truncate();
+            MutasiCW3::truncate();
+            MutasiCW4::truncate();
+            MutasiCW5::truncate();
+            MutasiCW6::truncate();
+            MutasiCW7::truncate();
+
+            return redirect()->route('mutasi_cws.index')
+                ->with('error', 'Semua data berhasil dihapus.');
         }
 
         $modelClass = 'App\\Models\\MutasiCW' . $mapping->data_no;
@@ -177,7 +187,13 @@ class MutasiCWController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('mutasi_cws')->with('error', 'Invalid region ID or no import class defined for MutasiCW!');
+            try {
+                Excel::import(new MutasiCWImport($indexSheet, $siteId), $request->file('file'));
+            } catch (\Exception $e) {
+                return redirect('mutasi_cws')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
+            }
+
+            return redirect('mutasi_cws')->with('status', 'Import excel di sheet ' . $indexSheet . ' berhasil');
         }
 
         $importClass = 'App\\Imports\\MutasiCW' . $mapping->data_no . 'Import';

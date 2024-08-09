@@ -11,6 +11,7 @@ use App\Models\MutasiTagBin6;
 use App\Models\MutasiTagBin7;
 use App\Models\RegionImportMappings;
 use Illuminate\Http\Request;
+use App\Imports\MutasiTagBinImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -32,7 +33,7 @@ class MutasiTagBinController extends Controller
         $user = auth()->user();
         $regionId = $user->region_id;
         $siteId = $user->site_id;
-        
+
         // Fetch the import class for MutasiTagBin from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
@@ -146,11 +147,25 @@ class MutasiTagBinController extends Controller
     public function deleteAll(): RedirectResponse
     {
         $user = auth()->user();
+
         $regionId = $user->region_id;
         $siteId = $user->site_id;
 
         // Fetch the import class for MutasiTagBin from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
+
+        if (!$mapping || !$mapping->data_no) {
+            MutasiTagBin1::truncate();
+            MutasiTagBin2::truncate();
+            MutasiTagBin3::truncate();
+            MutasiTagBin4::truncate();
+            MutasiTagBin5::truncate();
+            MutasiTagBin6::truncate();
+            MutasiTagBin7::truncate();
+
+            return redirect()->route('mutasi_tag_bins.index')
+                ->with('error', 'Semua data berhasil dihapus.');
+        }
 
         if (!$mapping || !$mapping->data_no) {
             return redirect('mutasi_tag_bins')->with('error', 'Invalid region ID or no import class defined for MutasiTagBin!');
@@ -179,7 +194,13 @@ class MutasiTagBinController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('mutasi_tag_bins')->with('error', 'Invalid region ID or no import class defined for MutasiTagBin!');
+            try {
+                Excel::import(new MutasiTagBinImport($indexSheet, $siteId), $request->file('file'));
+            } catch (\Exception $e) {
+                return redirect('mutasi_tag_bins')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
+            }
+
+            return redirect('mutasi_tag_bins')->with('status', 'Import excel di sheet ' . $indexSheet . ' berhasil');
         }
 
         $importClass = 'App\\Imports\\MutasiTagBin' . $mapping->data_no . 'Import';

@@ -9,6 +9,7 @@ use App\Models\CrystalReport4;
 use App\Models\CrystalReport5;
 use App\Models\CrystalReport6;
 use App\Models\CrystalReport7;
+use App\Imports\CrystalReportImport;
 use Illuminate\Http\Request;
 use App\Models\RegionImportMappings;
 use Maatwebsite\Excel\Facades\Excel;
@@ -31,7 +32,7 @@ class CrystalReportController extends Controller
         $user = auth()->user();
         $regionId = $user->region_id;
         $siteId = $user->site_id;
-        
+
         // Fetch the import class for MutasiTagBin from the database
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
@@ -152,7 +153,16 @@ class CrystalReportController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('crystal_reports')->with('error', 'Invalid region ID or no import class defined for CrystalReport!');
+            CrystalReport1::truncate();
+            CrystalReport2::truncate();
+            CrystalReport3::truncate();
+            CrystalReport4::truncate();
+            CrystalReport5::truncate();
+            CrystalReport6::truncate();
+            CrystalReport7::truncate();
+
+            return redirect()->route('crystal_reports.index')
+                ->with('error', 'Semua data berhasil dihapus.');
         }
 
         $modelClass = 'App\\Models\\CrystalReport' . $mapping->data_no;
@@ -178,7 +188,13 @@ class CrystalReportController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('crystal_reports')->with('error', 'Invalid region ID or no import class defined for CrystalReport!');
+            try {
+                Excel::import(new CrystalReportImport($indexSheet, $siteId), $request->file('file'));
+            } catch (\Exception $e) {
+                return redirect('crystal_reports')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
+            }
+
+            return redirect('mutasi_tag_bins')->with('status', 'Import excel di sheet ' . $indexSheet . ' berhasil');
         }
 
         $importClass = 'App\\Imports\\CrystalReport' . $mapping->data_no . 'Import';
@@ -222,7 +238,7 @@ class CrystalReportController extends Controller
 
         $dataproduk = $modelClass::all()->groupBy('location')->map(function ($items) {
             return $items->unique('item_no')->unique('item_name');
-                })->values();
+        })->values();
         $pdf = PDF::loadView('crystal_reports.barcode', compact('dataproduk'));
         $pdf->setPaper('a4', 'portrait');
         $pdf->setOption(['dpi' => 150, 'defaultFont' => 'serif']);
@@ -249,10 +265,10 @@ class CrystalReportController extends Controller
 
         $dataproduk = $modelClass::all()->groupBy('location')->map(function ($items) {
             return $items->unique('item_no')->unique('item_name');
-                })->values();
+        })->values();
         $pdf = PDF::loadView('crystal_reports.qr', compact('dataproduk'));
         $pdf->setPaper('a4', 'portrait');
         $pdf->setOption(['dpi' => 150, 'defaultFont' => 'serif']);
         return $pdf->stream('crystal_report.pdf');
-    }   
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\MutasiD4;
 use App\Models\MutasiD5;
 use App\Models\MutasiD6;
 use App\Models\MutasiD7;
+use App\Imports\MutasiDImport;
 use Illuminate\Http\Request;
 use App\Models\RegionImportMappings;
 use Maatwebsite\Excel\Facades\Excel;
@@ -152,7 +153,16 @@ class MutasiDController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('mutasi_ds')->with('error', 'Invalid region ID or no import class defined for MutasiD!');
+            MutasiD1::truncate();
+            MutasiD2::truncate();
+            MutasiD3::truncate();
+            MutasiD4::truncate();
+            MutasiD5::truncate();
+            MutasiD6::truncate();
+            MutasiD7::truncate();
+
+            return redirect()->route('mutasi_ds.index')
+                ->with('error', 'Semua data berhasil dihapus.');
         }
 
         $modelClass = 'App\\Models\\MutasiD' . $mapping->data_no;
@@ -177,7 +187,13 @@ class MutasiDController extends Controller
         $mapping = RegionImportMappings::where('region_id', $regionId)->first();
 
         if (!$mapping || !$mapping->data_no) {
-            return redirect('mutasi_ds')->with('error', 'Invalid region ID or no import class defined for MutasiD!');
+            try {
+                Excel::import(new MutasiDImport($indexSheet, $siteId), $request->file('file'));
+            } catch (\Exception $e) {
+                return redirect('mutasi_ds')->with('error', 'Error! Pastikan sheet dan template excel sudah sesuai. ');
+            }
+
+            return redirect('mutasi_ds')->with('status', 'Import excel di sheet ' . $indexSheet . ' berhasil');
         }
 
         $importClass = 'App\\Imports\\MutasiD' . $mapping->data_no . 'Import';

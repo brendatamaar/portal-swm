@@ -24,15 +24,16 @@ class MutasiTagBin6Import implements ToModel, WithStartRow, WithMultipleSheets
      */
     public function model(array $row)
     {
-        //print_r($row);
-        return new MutasiTagBin6([
-            'site_id'     => $this->site_id,
-            'site_name'    => $row[1],
-            'tag_bin_location' => $row[2],
-            'area' => $row[3],
-            'zone' => $row[4],
-            'status' => $row[5]
-        ]);
+        if ($row[0] == $this->site_id) {
+            return new MutasiTagBin6([
+                'site_id' => $row[0],
+                'site_name' => $row[1],
+                'tag_bin_location' => $row[2],
+                'area' => $row[3],
+                'zone' => $row[4],
+                'status' => $row[5]
+            ]);
+        }
     }
 
     public function sheets(): array

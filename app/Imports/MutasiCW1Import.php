@@ -24,16 +24,17 @@ class MutasiCW1Import implements ToModel, WithStartRow, WithMultipleSheets
      */
     public function model(array $row)
     {
-        //print_r($row);
-        return new MutasiCW1([
-            'no_kertas'     => $row[0],
-            'site_id'     => $this->site_id,
-            'site_name'    => $row[2],
-            'tag_bin_location' => $row[3],
-            'area' => $row[4],
-            'zone' => $row[5],
-            'status' => $row[6]
-        ]);
+        if ($row[1] == $this->site_id) {
+            return new MutasiCW1([
+                'no_kertas' => $row[0],
+                'site_id' => $row[1],
+                'site_name' => $row[2],
+                'tag_bin_location' => $row[3],
+                'area' => $row[4],
+                'zone' => $row[5],
+                'status' => $row[6]
+            ]);
+        }
     }
 
     public function sheets(): array
