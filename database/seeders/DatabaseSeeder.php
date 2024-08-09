@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SuperAdminSeeder::class,
             RegionMappingSeeder::class,
+            FaqsSeeder::class,
+            ItemsSeeder::class,
         ]);
     }
 }

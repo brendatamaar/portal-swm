@@ -30,6 +30,17 @@ class SuperAdminSeeder extends Seeder
         $swm->assignRole('SWM');
 
         // Creating Admin User
+        $ic = Users::create([
+            'nik' => $this->generateUniqueNIK(16),
+            'name' => 'IC User 1',
+            'username' => 'ic_user1',
+            'email' => 'ic1@gmail.com',
+            'password' => '123456',
+            'site_id' => '10003',
+            'region_id' => 'Reg003'
+        ]);
+        $ic->assignRole('IC');
+
         $reg_manager = Users::create([
             'nik' => $this->generateUniqueNIK(16),
             'name' => 'Regional Manager User 1',

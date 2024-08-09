@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
         $store_manager = Role::create(['name' => 'Store Manager']);
         $mod = Role::create(['name' => 'MOD']);
         $leader = Role::create(['name' => 'Leader']);
+        $ic = Role::create(['name' => 'IC']);
 
         $reg_manager->givePermissionTo([
             'view-dashboard',
@@ -28,7 +29,19 @@ class RoleSeeder extends Seeder
             'view-sampling',
             'upload-sampling',
             'progress-sampling',
-            'view-crumen'
+            'view-crumen',
+            'view-form_trs',
+            'create-form_trs',
+            'update-form_trs',
+            'delete-form_trs',
+            'view-video',
+            'create-video',
+            'update-video',
+            'delete-video',
+            'view-items',
+            'create-items',
+            'update-items',
+            'delete-items',
         ]);
 
         $store_manager->givePermissionTo([
@@ -44,6 +57,18 @@ class RoleSeeder extends Seeder
             'upload-crumen',
             'delete-crumen',
             'export-crumen',
+            'view-form_trs',
+            'create-form_trs',
+            'update-form_trs',
+            'delete-form_trs',
+            'view-video',
+            'create-video',
+            'update-video',
+            'delete-video',
+            'view-items',
+            'create-items',
+            'update-items',
+            'delete-items',
         ]);
 
         $mod->givePermissionTo([
@@ -59,6 +84,18 @@ class RoleSeeder extends Seeder
             'upload-crumen',
             'delete-crumen',
             'export-crumen',
+            'view-form_trs',
+            'create-form_trs',
+            'update-form_trs',
+            'delete-form_trs',
+            'view-video',
+            'create-video',
+            'update-video',
+            'delete-video',
+            'view-items',
+            'create-items',
+            'update-items',
+            'delete-items',
         ]);
 
         $leader->givePermissionTo([
@@ -74,6 +111,37 @@ class RoleSeeder extends Seeder
             'upload-crumen',
             'delete-crumen',
             'export-crumen',
+            'view-form_trs',
+            'create-form_trs',
+            'update-form_trs',
+            'delete-form_trs',
+            'approve-form_trs',
+            'view-video',
+            'create-video',
+            'update-video',
+            'delete-video',
+            'view-items',
+            'create-items',
+            'update-items',
+            'delete-items',
+        ]);
+
+        $ic->givePermissionTo([
+            'view-dashboard',
+            'view-data-report',
+            'view-cycle-count',
+            'progress-cycle-count',
+            'upload-cycle-count',
+            'view-form_trs',
+            'approve-form_trs',
+            'view-video',
+            'create-video',
+            'update-video',
+            'delete-video',
+            'view-items',
+            'create-items',
+            'update-items',
+            'delete-items',
         ]);
     }
 }

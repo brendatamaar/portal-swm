@@ -58,7 +58,20 @@ class PermissionSeeder extends Seeder
             'delete-letyouknow',
             'upload-learning',
             'edit-learning',
-            'delete-learning'
+            'delete-learning',
+            'view-form_trs',
+            'create-form_trs',
+            'update-form_trs',
+            'delete-form_trs',
+            'approve-form_trs',
+            'view-video',
+            'create-video',
+            'update-video',
+            'delete-video',
+            'view-items',
+            'create-items',
+            'update-items',
+            'delete-items',
         ];
 
         // Looping and Inserting Array's Permissions into Permission Table

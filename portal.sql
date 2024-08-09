@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2024 at 08:14 AM
+-- Generation Time: Aug 09, 2024 at 10:22 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -390,6 +390,79 @@ CREATE TABLE `faqs` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALUES
+(1, 'Tes Question 1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(2, 'Tes Question 2', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(3, 'Tes Question 3', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.', '2024-08-09 01:21:27', '2024-08-09 01:21:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `form_trs`
+--
+
+CREATE TABLE `form_trs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `no_document` varchar(255) NOT NULL,
+  `no_receipt` varchar(255) NOT NULL,
+  `transfer_from` varchar(255) NOT NULL,
+  `transfer_to` varchar(255) NOT NULL,
+  `status_form` text NOT NULL,
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items`
+--
+
+CREATE TABLE `items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `item_no` varchar(255) NOT NULL,
+  `item_desc` varchar(255) NOT NULL,
+  `uom` varchar(255) NOT NULL,
+  `kategori` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `item_no`, `item_desc`, `uom`, `kategori`, `created_at`, `updated_at`) VALUES
+(1, '1', 'Item 1', 'PCS', 'Warehouse', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(2, '2', 'Item 2', 'PCS', 'Topper', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(3, '3', 'Item 3', 'PCS', 'Warehouse', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(4, '4', 'Item 4', 'PCS', 'Warehouse', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(5, '5', 'Item 5', 'PCS', 'Warehouse', '2024-08-09 01:21:27', '2024-08-09 01:21:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_trs`
+--
+
+CREATE TABLE `item_trs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tr_id` bigint(20) UNSIGNED NOT NULL,
+  `item_no` varchar(255) DEFAULT NULL,
+  `item_desc` varchar(255) DEFAULT NULL,
+  `item_code` varchar(255) DEFAULT NULL,
+  `uom` varchar(255) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -460,7 +533,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (51, '2024_06_10_023401_create_sampling7s_table', 1),
 (52, '2024_06_10_080503_create_region_import_mappings_table', 1),
 (53, '2024_07_23_030658_create_videos_table', 1),
-(54, '2024_07_23_033420_create_faqs_table', 1);
+(54, '2024_07_23_033420_create_faqs_table', 1),
+(55, '2024_08_05_040807_create_items', 1),
+(56, '2024_08_05_041203_create_form_trs', 1),
+(57, '2024_08_05_063208_create_trs', 1),
+(58, '2024_08_05_063416_create_item_trs', 1);
 
 -- --------------------------------------------------------
 
@@ -492,11 +569,12 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\Users', 1),
-(2, 'App\\Models\\Users', 2),
 (2, 'App\\Models\\Users', 3),
-(3, 'App\\Models\\Users', 4),
-(4, 'App\\Models\\Users', 5),
-(5, 'App\\Models\\Users', 6);
+(2, 'App\\Models\\Users', 4),
+(3, 'App\\Models\\Users', 5),
+(4, 'App\\Models\\Users', 6),
+(5, 'App\\Models\\Users', 7),
+(6, 'App\\Models\\Users', 2);
 
 -- --------------------------------------------------------
 
@@ -928,49 +1006,62 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'view-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(2, 'create-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(3, 'update-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(4, 'delete-role', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(5, 'view-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(6, 'create-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(7, 'update-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(8, 'delete-user', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(9, 'view-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(10, 'create-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(11, 'update-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(12, 'delete-store', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(13, 'view-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(14, 'create-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(15, 'update-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(16, 'delete-region', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(17, 'view-dashboard', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(18, 'view-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(19, 'upload-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(20, 'delete-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(21, 'update-data-report', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(22, 'view-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(23, 'upload-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(24, 'delete-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(25, 'update-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(26, 'progress-cycle-count', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(27, 'view-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(28, 'upload-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(29, 'delete-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(30, 'update-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(31, 'progress-sampling', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(32, 'view-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(33, 'upload-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(34, 'delete-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(35, 'export-crumen', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(36, 'view-history', 'web', '2024-07-22 23:14:03', '2024-07-22 23:14:03'),
-(37, 'export-history', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(38, 'create-letyouknow', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(39, 'edit-letyouknow', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(40, 'delete-letyouknow', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(41, 'upload-learning', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(42, 'edit-learning', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(43, 'delete-learning', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04');
+(1, 'view-role', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(2, 'create-role', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(3, 'update-role', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(4, 'delete-role', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(5, 'view-user', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(6, 'create-user', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(7, 'update-user', 'web', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+(8, 'delete-user', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(9, 'view-store', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(10, 'create-store', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(11, 'update-store', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(12, 'delete-store', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(13, 'view-region', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(14, 'create-region', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(15, 'update-region', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(16, 'delete-region', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(17, 'view-dashboard', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(18, 'view-data-report', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(19, 'upload-data-report', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(20, 'delete-data-report', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(21, 'update-data-report', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(22, 'view-cycle-count', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(23, 'upload-cycle-count', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(24, 'delete-cycle-count', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(25, 'update-cycle-count', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(26, 'progress-cycle-count', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(27, 'view-sampling', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(28, 'upload-sampling', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(29, 'delete-sampling', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(30, 'update-sampling', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(31, 'progress-sampling', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(32, 'view-crumen', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(33, 'upload-crumen', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(34, 'delete-crumen', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(35, 'export-crumen', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(36, 'view-history', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(37, 'export-history', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(38, 'create-letyouknow', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(39, 'edit-letyouknow', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(40, 'delete-letyouknow', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(41, 'upload-learning', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(42, 'edit-learning', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(43, 'delete-learning', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(44, 'view-form_trs', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(45, 'create-form_trs', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(46, 'update-form_trs', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(47, 'delete-form_trs', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(48, 'approve-form_trs', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(49, 'view-video', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(50, 'create-video', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(51, 'update-video', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(52, 'delete-video', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(53, 'view-items', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(54, 'create-items', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(55, 'update-items', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(56, 'delete-items', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26');
 
 -- --------------------------------------------------------
 
@@ -1008,14 +1099,14 @@ CREATE TABLE `regions` (
 --
 
 INSERT INTO `regions` (`reg_id`, `reg_name`, `created_at`, `updated_at`) VALUES
-('Reg000', 'HO', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg001', 'Region 1', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg002', 'Region 2', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg003', 'Region 3', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg004', 'Region 4', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg005', 'Region 5', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg006', 'Region 6', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('Reg007', 'Region 7', '2024-07-22 23:14:02', '2024-07-22 23:14:02');
+('Reg000', 'HO', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg001', 'Region 1', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg002', 'Region 2', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg003', 'Region 3', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg004', 'Region 4', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg005', 'Region 5', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg006', 'Region 6', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('Reg007', 'Region 7', '2024-08-09 01:21:25', '2024-08-09 01:21:25');
 
 -- --------------------------------------------------------
 
@@ -1036,13 +1127,13 @@ CREATE TABLE `region_imports` (
 --
 
 INSERT INTO `region_imports` (`id`, `region_id`, `data_no`, `created_at`, `updated_at`) VALUES
-(1, 'Reg001', '1', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(2, 'Reg002', '2', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(3, 'Reg003', '3', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(4, 'Reg004', '4', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(5, 'Reg005', '5', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(6, 'Reg006', '6', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(7, 'Reg007', '7', '2024-07-22 23:14:05', '2024-07-22 23:14:05');
+(1, 'Reg001', '1', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(2, 'Reg002', '2', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(3, 'Reg003', '3', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(4, 'Reg004', '4', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(5, 'Reg005', '5', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(6, 'Reg006', '6', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(7, 'Reg007', '7', '2024-08-09 01:21:27', '2024-08-09 01:21:27');
 
 -- --------------------------------------------------------
 
@@ -1063,11 +1154,12 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'SWM', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(2, 'Regional Manager', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(3, 'Store Manager', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(4, 'MOD', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(5, 'Leader', 'web', '2024-07-22 23:14:04', '2024-07-22 23:14:04');
+(1, 'SWM', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(2, 'Regional Manager', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(3, 'Store Manager', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(4, 'MOD', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(5, 'Leader', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26'),
+(6, 'IC', 'web', '2024-08-09 01:21:26', '2024-08-09 01:21:26');
 
 -- --------------------------------------------------------
 
@@ -1089,20 +1181,25 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (17, 3),
 (17, 4),
 (17, 5),
+(17, 6),
 (18, 2),
 (18, 3),
 (18, 4),
 (18, 5),
+(18, 6),
 (22, 2),
 (22, 3),
 (22, 4),
 (22, 5),
+(22, 6),
 (23, 3),
 (23, 4),
 (23, 5),
+(23, 6),
 (26, 3),
 (26, 4),
 (26, 5),
+(26, 6),
 (27, 2),
 (27, 3),
 (27, 4),
@@ -1127,7 +1224,66 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (34, 5),
 (35, 3),
 (35, 4),
-(35, 5);
+(35, 5),
+(44, 2),
+(44, 3),
+(44, 4),
+(44, 5),
+(44, 6),
+(45, 2),
+(45, 3),
+(45, 4),
+(45, 5),
+(46, 2),
+(46, 3),
+(46, 4),
+(46, 5),
+(47, 2),
+(47, 3),
+(47, 4),
+(47, 5),
+(48, 5),
+(48, 6),
+(49, 2),
+(49, 3),
+(49, 4),
+(49, 5),
+(49, 6),
+(50, 2),
+(50, 3),
+(50, 4),
+(50, 5),
+(50, 6),
+(51, 2),
+(51, 3),
+(51, 4),
+(51, 5),
+(51, 6),
+(52, 2),
+(52, 3),
+(52, 4),
+(52, 5),
+(52, 6),
+(53, 2),
+(53, 3),
+(53, 4),
+(53, 5),
+(53, 6),
+(54, 2),
+(54, 3),
+(54, 4),
+(54, 5),
+(54, 6),
+(55, 2),
+(55, 3),
+(55, 4),
+(55, 5),
+(55, 6),
+(56, 2),
+(56, 3),
+(56, 4),
+(56, 5),
+(56, 6);
 
 -- --------------------------------------------------------
 
@@ -1404,16 +1560,31 @@ CREATE TABLE `stores` (
 --
 
 INSERT INTO `stores` (`site_id`, `site_name`, `region_id`, `created_at`, `updated_at`) VALUES
-('00001', 'HO', 'Reg000', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10003', 'MITRA10 CIBUBUR', 'Reg003', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10004', 'MITRA10 DAAN MOGOT', 'Reg006', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10005', 'MITRA10 PERCETAKAN NEGARA', 'Reg005', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10006', 'MITRA10 PASAR BARU', 'Reg004', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10007', 'MITRA10 BINTARO', 'Reg004', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10009', 'MITRA10 CINERE', 'Reg005', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10040', 'MITRA10 FATMAWATI', 'Reg004', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10042', 'MITRA10 PANTAI INDAH KAPUK', 'Reg006', '2024-07-22 23:14:02', '2024-07-22 23:14:02'),
-('10044', 'MITRA10 KOTA HARAPAN INDAH', 'Reg003', '2024-07-22 23:14:02', '2024-07-22 23:14:02');
+('00001', 'HO', 'Reg000', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10003', 'MITRA10 CIBUBUR', 'Reg003', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10004', 'MITRA10 DAAN MOGOT', 'Reg006', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10005', 'MITRA10 PERCETAKAN NEGARA', 'Reg005', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10006', 'MITRA10 PASAR BARU', 'Reg004', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10007', 'MITRA10 BINTARO', 'Reg004', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10009', 'MITRA10 CINERE', 'Reg005', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10040', 'MITRA10 FATMAWATI', 'Reg004', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10042', 'MITRA10 PANTAI INDAH KAPUK', 'Reg006', '2024-08-09 01:21:25', '2024-08-09 01:21:25'),
+('10044', 'MITRA10 KOTA HARAPAN INDAH', 'Reg003', '2024-08-09 01:21:25', '2024-08-09 01:21:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trs`
+--
+
+CREATE TABLE `trs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `form_id` bigint(20) UNSIGNED NOT NULL,
+  `nota_penjualan` varchar(255) NOT NULL,
+  `promise_date` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1440,12 +1611,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nik`, `name`, `email`, `username`, `password`, `avatar`, `site_id`, `region_id`, `created_at`, `updated_at`) VALUES
-(1, '9022393189613541', 'SWM User', 'swm@gmail.com', 'swm_user', '$2y$10$KislyHGr48trrqgsPR5XCeFJGtfAgk39vqVW6ZpCiivReZlyo2ESi', NULL, '00001', 'Reg000', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(2, '2279403539290905', 'Regional Manager User 1', 'reg_manager1@gmail.com', 'reg_manager_user1', '$2y$10$tshJ/DxEkCqWGDUyF3485OS/3nsrF8mrHwvUF8GA3nUwx.SY3l94u', NULL, '10003', 'Reg003', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(3, '3577038200734021', 'Regional Manager User 2', 'reg_manager2@gmail.com', 'reg_manager_user2', '$2y$10$.e1HGiFGUuK3jrg2UOkfJuwT/f4LIVp.1p9SrSC.MUu6qw32EPM16', NULL, '10004', 'Reg006', '2024-07-22 23:14:04', '2024-07-22 23:14:04'),
-(4, '4486816599357761', 'Store Manager User', 'store_manager@gmail.com', 'store_manager_user', '$2y$10$Qb6XGUKUfsU6V1ofkoNZ7e1Fmfe4nPTxO7bo41/XoM5bqnXV7JFCC', NULL, '00001', 'Reg001', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(5, '6842722502693939', 'MOD User', 'mod@gmail.com', 'mod_user', '$2y$10$cpNRYV37dAMMJcWHFTDLO.1riwbo.0lusWcVAgMr/G.OQUiX72kf.', NULL, '00001', 'Reg001', '2024-07-22 23:14:05', '2024-07-22 23:14:05'),
-(6, '9246264065919914', 'Leader User', 'leader@gmail.com', 'leader_user', '$2y$10$/IYarYLDQOrY/mfSWSuVbuH5zMpZQxXF8D4DkHLVKTGzXI4zqkwr2', NULL, '00001', 'Reg001', '2024-07-22 23:14:05', '2024-07-22 23:14:05');
+(1, '4328971254189283', 'SWM User', 'swm@gmail.com', 'swm_user', '$2y$10$io8uVcOT45vqumIOkB7r3eQoINOWRvKPDhmv4FJ8MrQzA1G9O8qqS', NULL, '00001', 'Reg000', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(2, '5380535206196654', 'IC User 1', 'ic1@gmail.com', 'ic_user1', '$2y$10$KEEjm8Db7kYDr/q.X4RiH.g7uFIm3I9/Nuepp4PuClT9lZAxJayKu', NULL, '10003', 'Reg003', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(3, '9918261749052293', 'Regional Manager User 1', 'reg_manager1@gmail.com', 'reg_manager_user1', '$2y$10$hydumXJ/Qon0Bu9MZeIcRuE/IQ9vOMscZhMFXtRC/0YCbRH.S2.TK', NULL, '10003', 'Reg003', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(4, '9973096005980116', 'Regional Manager User 2', 'reg_manager2@gmail.com', 'reg_manager_user2', '$2y$10$Wha6SlOV.RO.gTSr7j.WCet0wbHRgjXzQEFbsX6io0W9AC6y0b8OO', NULL, '10004', 'Reg006', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(5, '9731535531081967', 'Store Manager User', 'store_manager@gmail.com', 'store_manager_user', '$2y$10$5ETsZWXsNK8CvbX2.dtL6.ZCqwlLGgjdgQ8aIGJJgeBmJ5qe.S4GK', NULL, '00001', 'Reg001', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(6, '5686926166280788', 'MOD User', 'mod@gmail.com', 'mod_user', '$2y$10$9XBW5roW.rPus26CUy8QO.XQF1z7qIZlcBU8aeRANLPKKw6AW8S1a', NULL, '00001', 'Reg001', '2024-08-09 01:21:27', '2024-08-09 01:21:27'),
+(7, '6244393973943910', 'Leader User', 'leader@gmail.com', 'leader_user', '$2y$10$SUul6SYXe1eQx5l87YzLE.yw.5liMhIsB4AXyhBNdrkIFc7URg73y', NULL, '00001', 'Reg001', '2024-08-09 01:21:27', '2024-08-09 01:21:27');
 
 -- --------------------------------------------------------
 
@@ -1569,6 +1741,29 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `faqs`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `form_trs`
+--
+ALTER TABLE `form_trs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `form_trs_transfer_from_foreign` (`transfer_from`),
+  ADD KEY `form_trs_transfer_to_foreign` (`transfer_to`),
+  ADD KEY `form_trs_created_by_foreign` (`created_by`),
+  ADD KEY `form_trs_approved_by_foreign` (`approved_by`);
+
+--
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `item_trs`
+--
+ALTER TABLE `item_trs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `item_trs_tr_id_foreign` (`tr_id`);
 
 --
 -- Indexes for table `migrations`
@@ -1821,6 +2016,13 @@ ALTER TABLE `stores`
   ADD KEY `stores_region_id_foreign` (`region_id`);
 
 --
+-- Indexes for table `trs`
+--
+ALTER TABLE `trs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `trs_form_id_foreign` (`form_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1942,13 +2144,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `faqs`
 --
 ALTER TABLE `faqs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `form_trs`
+--
+ALTER TABLE `form_trs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `item_trs`
+--
+ALTER TABLE `item_trs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `mutasi_cw1s`
@@ -2080,7 +2300,7 @@ ALTER TABLE `mutasi_tag_bin7s`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -2098,7 +2318,7 @@ ALTER TABLE `region_imports`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sampling1s`
@@ -2149,10 +2369,16 @@ ALTER TABLE `samplings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `trs`
+--
+ALTER TABLE `trs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `videos`
@@ -2169,6 +2395,21 @@ ALTER TABLE `videos`
 --
 ALTER TABLE `cycle_counts`
   ADD CONSTRAINT `cycle_counts_site_id_foreign` FOREIGN KEY (`site_id`) REFERENCES `stores` (`site_id`);
+
+--
+-- Constraints for table `form_trs`
+--
+ALTER TABLE `form_trs`
+  ADD CONSTRAINT `form_trs_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `form_trs_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `form_trs_transfer_from_foreign` FOREIGN KEY (`transfer_from`) REFERENCES `stores` (`site_id`),
+  ADD CONSTRAINT `form_trs_transfer_to_foreign` FOREIGN KEY (`transfer_to`) REFERENCES `stores` (`site_id`);
+
+--
+-- Constraints for table `item_trs`
+--
+ALTER TABLE `item_trs`
+  ADD CONSTRAINT `item_trs_tr_id_foreign` FOREIGN KEY (`tr_id`) REFERENCES `trs` (`id`);
 
 --
 -- Constraints for table `model_has_permissions`
@@ -2206,6 +2447,12 @@ ALTER TABLE `samplings`
 --
 ALTER TABLE `stores`
   ADD CONSTRAINT `stores_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`reg_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `trs`
+--
+ALTER TABLE `trs`
+  ADD CONSTRAINT `trs_form_id_foreign` FOREIGN KEY (`form_id`) REFERENCES `form_trs` (`id`);
 
 --
 -- Constraints for table `users`

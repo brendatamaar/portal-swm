@@ -143,6 +143,15 @@
         </li>
         @endcanany
 
+        @canany(['view-form_trs', 'create-form_trs', 'update-form_trs', 'delete-form_trs'])
+        <li class="nav-item {{ active_class(['form_trs/*']) }}">
+            <a class="nav-link" href="{{ route('form_trs.index') }}">
+                <i class="menu-icon mdi mdi-plus-box"></i>
+                <span class="menu-title">Form Req TR</span>
+            </a>
+        </li>
+        @endcanany
+
         @canany(['view-crumen'])
         <li class="nav-item {{ active_class(['crumens/*']) }}">
             <a class="nav-link" data-toggle="collapse" href="#crumen"
@@ -197,6 +206,15 @@
         </li>
         @endcanany
 
+        @canany(['view-items', 'create-items', 'update-items', 'delete-items'])
+        <li class="nav-item {{ is_active_route(['items']) }}">
+            <a class="nav-link" href="{{ route('items.index') }}">
+                <i class="menu-icon mdi mdi-package"></i>
+                <span class="menu-title">Items</span>
+            </a>
+        </li>
+        @endcanany
+
         @canany(['view-backup'])
         <li class="nav-item">
             <a class="nav-link">
@@ -206,7 +224,7 @@
         </li>
         @endcanany
 
-        @canany(['view-backup'])
+        @canany(['create-video', 'edit-video', 'delete-video', 'create-letyouknow', 'edit-letyouknow', 'delete-letyouknow'])
         <li class="nav-item {{ active_class(['basic-ui5/*']) }}">
             <a class="nav-link" data-toggle="collapse" href="#basic-ui5"
                 aria-expanded="{{ is_active_route(['basic-ui3/*']) }}" aria-controls="basic-ui5">
@@ -216,12 +234,16 @@
             </a>
             <div class="collapse {{ show_class(['basic-ui5/*']) }}" id="basic-ui5">
                 <ul class="nav flex-column sub-menu">
+                    @canany(['create-letyouknow', 'edit-letyouknow', 'delete-letyouknow'])
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('faqs.create') }}">Data Let You Know</a>
                     </li>
+                    @endcanany
+                    @canany(['create-video', 'edit-video', 'delete-video'])
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('videos.create') }}">Data Leaning by Video</a>
                     </li>
+                    @endcanany
                 </ul>
             </div>
         </li>

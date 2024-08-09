@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormTrController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\MutasiDController;
 use App\Http\Controllers\CrystalReportController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ItemsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +60,10 @@ Route::get('delete-all-crystal-report', [CrystalReportController::class, 'delete
 Route::get('generate-barcode-crystal-report', [CrystalReportController::class, 'cetakBarcode'])->name('crystal-report.cetak_barcode');
 Route::get('generate-qr-crystal-report', [CrystalReportController::class, 'cetakQR'])->name('crystal-report.cetak_qr');
 
+Route::get('form_trs/create_2', [FormTrController::class, 'create_2'])->name('form_trs.create_2');
+Route::post('form_trs/store_2', [FormTrController::class, 'store_2'])->name('form_trs.store_2');
+Route::post('form_trs/approve/{id}', [FormTrController::class, 'approve'])->name('form_trs.approve');
+
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
@@ -70,7 +76,9 @@ Route::resources([
     'mutasi_ds' => MutasiDController::class,
     'crystal_reports' => CrystalReportController::class,
     'videos'=> VideoController::class,
-    'faqs'=> FaqController::class
+    'faqs'=> FaqController::class,
+    'items'=> ItemsController::class,
+    'form_trs'=> FormTrController::class
 ]);
 
 Route::get('change-password', [ProfileController::class, 'indexChangePassword'])->name('profile.update-password');
