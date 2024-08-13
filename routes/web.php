@@ -33,6 +33,9 @@ Route::get('/login', function () {
 
 Auth::routes();
 
+Route::get('/registerUser', [HomeController::class, 'register'])->name('register');
+Route::post('createUser', [HomeController::class, 'createUser'])->name('createUser');
+
 Route::get('stores/mapping', [StoreController::class, 'indexMapping'])->name('stores.mapping');
 Route::post('stores/update-mapping', [StoreController::class, 'updateMapping'])->name('stores.update-mapping');
 
@@ -85,6 +88,7 @@ Route::get('change-password', [ProfileController::class, 'indexChangePassword'])
 Route::post('update-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 
 Route::get('/api/get-sites/{region_id}', [StoreController::class, 'fetchSitesByRegion']);
+Route::get('/api/get-sites-register/{region_id}', [HomeController::class, 'fetchSitesByRegion']);
 
 Route::get('upload/sampling', [SamplingController::class, 'upload'])->name('samplings.upload-data');
 Route::post('import', [SamplingController::class, 'import'])->name('import');
