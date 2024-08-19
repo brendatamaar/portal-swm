@@ -36,7 +36,6 @@ class HomeController extends Controller
     public function createUser(Request $request)
     {
         $input = $request->all();
-        $input['password'] = Hash::make($request->password);
 
         $user = Users::create($input);
         $user->assignRole($request->roles);
